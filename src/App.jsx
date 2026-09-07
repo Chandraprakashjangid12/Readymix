@@ -1,22 +1,29 @@
-
-import Hero from "./Components/Hero";
-import Navbar from "./Components/Navabr";
-import About from "./Components/About";
-import Product from "./Components/Product";
-import Project from "./Components/Project";
-import Contact from "./Components/Contact";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import WhatsAppButton from "./Components/WhatsAppButton";
+import CallButton from "./Components/Callbutton";
+import Home from "./Components/pages/Home";
+import AboutPage from "./Components/pages/AboutPage";
+import ProductsPage from "./Components/pages/ProductsPage";
+import ProjectsPage from "./Components/pages/ProjectsPage";
+import ContactPage from "./Components/pages/ContactPage";
+
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      <Hero />
-      <About />
-      <Product />
-      <Project />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
       <Footer />
-    </>
+      <WhatsAppButton />
+      <CallButton />
+    </BrowserRouter>
   );
 }
 

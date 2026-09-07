@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Clock, ShieldCheck, MapPinned } from "lucide-react";
 // Change this path/filename to match your actual image inside src/assets
 import heroImage from "../assets/plant-photo.jpg";
-// D:\readymix\chaman\src\assets\plant-photo.jpg
 
 const colors = {
   charcoal: "#221F1C",
@@ -104,14 +104,14 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mt-9">
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="hero-cta flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-6 py-3.5"
                 style={{ background: colors.orange }}
               >
                 Request a Quote
                 <ArrowRight size={16} strokeWidth={2.5} />
-              </a>
+              </Link>
               <a
                 href="tel:+919829000000"
                 className="hero-cta-outline flex items-center gap-2 brand-font text-sm font-medium tracking-wide px-6 py-3.5 border"

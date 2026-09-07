@@ -1,30 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, Phone, MapPin, ArrowRight, Mail } from "lucide-react";
 
 const BRANCHES = [
   {
     name: "Jaipur — Sitapura",
     area: "Sitapura Industrial Area, Jaipur",
-    phone: "+91 7790961018",
+    phone: "+91 98290 00001",
   },
   {
     name: "Jaipur — Ajmer Road",
     area: "Ajmer Road, Jaipur",
-    phone: "+91 7790961018",
+    phone: "+91 98290 00002",
   },
   {
     name: "Kotputli Plant",
     area: "NH-48, Kotputli, Rajasthan",
-    phone: "+91 7790961018",
+    phone: "+91 98290 00003",
   },
 ];
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Products", href: "#products" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", to: "/" },
+  { label: "About Us", to: "/about" },
+  { label: "Products", to: "/products" },
+  { label: "Projects", to: "/projects" },
+  { label: "Contact", to: "/contact" },
 ];
 
 export default function Navbar() {
@@ -94,9 +95,9 @@ export default function Navbar() {
       <div style={{ background: colors.charcoal }} className="hidden md:block">
         <div className="max-w-7xl mx-auto px-8 flex items-center justify-between text-xs py-2.5">
           <div className="flex items-center gap-6" style={{ color: colors.concreteMid }}>
-            <a href="tel:+917790961018" className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="tel:+919829000000" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Phone size={13} strokeWidth={2} />
-              <span>+91 7790961018</span>
+              <span>+91 98290 00000</span>
             </a>
             <a href="mailto:info@shreebalajireadymix.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail size={13} strokeWidth={2} />
@@ -123,7 +124,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
-            <a href="#home" className="flex items-center gap-3 shrink-0">
+            <Link to="/" className="flex items-center gap-3 shrink-0">
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                 <path d="M20 2L36 11V29L20 38L4 29V11L20 2Z" fill={colors.charcoal} />
                 <path d="M20 2L36 11L20 20L4 11L20 2Z" fill={colors.orange} />
@@ -140,19 +141,19 @@ export default function Navbar() {
                   READY MIX CONCRETE
                 </div>
               </div>
-            </a>
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-9">
-              <a href="#home" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
                 Home
-              </a>
-              <a href="#about" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              </Link>
+              <Link to="/about" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
                 About Us
-              </a>
-              <a href="#products" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              </Link>
+              <Link to="/products" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
                 Products
-              </a>
+              </Link>
 
               {/* Branches dropdown */}
               <div className="relative" ref={dropdownRef}>
@@ -179,9 +180,10 @@ export default function Navbar() {
                     </div>
                     <div className="p-2">
                       {BRANCHES.map((b) => (
-                        <a
+                        <Link
                           key={b.name}
-                          href="#contact"
+                          to="/contact"
+                          onClick={() => setBranchOpen(false)}
                           className="branch-card flex items-start gap-3 px-3 py-3 border-l-2"
                           style={{ borderColor: "transparent" }}
                         >
@@ -197,31 +199,31 @@ export default function Navbar() {
                               {b.phone}
                             </div>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
                 )}
               </div>
 
-              <a href="#projects" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/projects" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
                 Projects
-              </a>
-              <a href="#contact" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              </Link>
+              <Link to="/contact" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
                 Contact
-              </a>
+              </Link>
             </nav>
 
             {/* CTA + mobile toggle */}
             <div className="flex items-center gap-4">
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="cta-btn hidden md:flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-5 py-2.5"
                 style={{ background: colors.orange }}
               >
                 Request a Quote
                 <ArrowRight size={15} strokeWidth={2.5} />
-              </a>
+              </Link>
 
               <button
                 onClick={() => setMobileOpen((v) => !v)}
@@ -240,14 +242,15 @@ export default function Navbar() {
           <div className="lg:hidden mobile-panel" style={{ background: "#FFFFFF", borderTop: `1px solid ${colors.concreteMid}` }}>
             <div className="px-6 py-5 flex flex-col gap-1">
               {NAV_LINKS.slice(0, 3).map((l) => (
-                <a
+                <Link
                   key={l.label}
-                  href={l.href}
+                  to={l.to}
+                  onClick={() => setMobileOpen(false)}
                   className="brand-font text-base font-medium py-3 border-b"
                   style={{ color: colors.ink, borderColor: colors.concrete }}
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
 
               {/* Mobile branches accordion */}
@@ -280,24 +283,26 @@ export default function Navbar() {
               </div>
 
               {NAV_LINKS.slice(3).map((l) => (
-                <a
+                <Link
                   key={l.label}
-                  href={l.href}
+                  to={l.to}
+                  onClick={() => setMobileOpen(false)}
                   className="brand-font text-base font-medium py-3 border-b"
                   style={{ color: colors.ink, borderColor: colors.concrete }}
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
 
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
                 className="cta-btn flex items-center justify-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-5 py-3 mt-4"
                 style={{ background: colors.orange }}
               >
                 Request a Quote
                 <ArrowRight size={15} strokeWidth={2.5} />
-              </a>
+              </Link>
             </div>
           </div>
         )}

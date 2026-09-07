@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Mountain, Waves, Package } from "lucide-react";
 
 const colors = {
@@ -111,14 +112,14 @@ export default function Products() {
                 <p className="body-font text-sm leading-relaxed flex-1" style={{ color: colors.concreteMid }}>
                   {p.desc}
                 </p>
-                <a
-                  href="#contact"
+                <Link
+                  to="/contact"
                   className="body-font text-sm font-medium mt-5 inline-flex items-center gap-1.5"
                   style={{ color: colors.orange }}
                 >
                   Request Quote
                   <ArrowRight size={14} strokeWidth={2.5} />
-                </a>
+                </Link>
               </div>
             );
           })}
@@ -135,14 +136,14 @@ export default function Products() {
                 Tap a grade to see where it's typically used
               </div>
             </div>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-5 py-3 self-start"
               style={{ background: colors.orange }}
             >
               Not Sure Which Grade? Ask Us
               <ArrowRight size={15} strokeWidth={2.5} />
-            </a>
+            </Link>
           </div>
 
           <div className="flex flex-wrap gap-3 mb-6">
