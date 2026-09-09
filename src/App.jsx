@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
+// import TruckBanner from "./Components/Truckbanner";
 import Footer from "./Components/Footer";
 import WhatsAppButton from "./Components/WhatsAppButton";
 import CallButton from "./Components/Callbutton";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
+      {/* <TruckBanner /> */}
       <Footer />
       <WhatsAppButton />
       <CallButton />

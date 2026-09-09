@@ -27,7 +27,7 @@ export default function Home() {
       <Hero />
 
       {/* Pillars of strength */}
-      <section style={{ background: colors.ink }} className="py-16">
+      <section style={{ background: colors.ink }} className="py-10">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PILLARS.map((p) => {
@@ -38,10 +38,10 @@ export default function Home() {
                     <Icon size={20} strokeWidth={2} className="text-white" />
                   </div>
                   <div>
-                    <div className="text-white font-semibold text-sm" style={{ fontFamily: "'Oswald', sans-serif" }}>
+                    <div className="text-white font-semibold text-sm" style={{ fontFamily: "'Poppins', sans-serif" }}>
                       {p.title}
                     </div>
-                    <div className="text-xs mt-1" style={{ color: colors.concreteMid, fontFamily: "'Work Sans', sans-serif" }}>
+                    <div className="text-xs mt-1" style={{ color: colors.concreteMid, fontFamily: "'Inter', sans-serif" }}>
                       {p.desc}
                     </div>
                   </div>
@@ -57,14 +57,13 @@ export default function Home() {
       {/* CTA banner */}
       <section style={{ background: colors.orange }} className="py-14">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="text-2xl md:text-3xl font-semibold text-white mb-5" style={{ fontFamily: "'Oswald', sans-serif" }}>
+          <div className="text-2xl md:text-3xl font-semibold text-white mb-5" style={{ fontFamily: "'Poppins', sans-serif" }}>
             Ready to schedule your pour?
           </div>
-          
-              <a       
+          <a
             href="/contact"
             className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5"
-            style={{ background: colors.ink, color: "#FFFFFF", fontFamily: "'Oswald', sans-serif" }}
+            style={{ background: colors.ink, color: "#FFFFFF", fontFamily: "'Poppins', sans-serif" }}
           >
             Get a Quote
             <ArrowRight size={16} strokeWidth={2.5} />

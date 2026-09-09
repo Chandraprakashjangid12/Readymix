@@ -42,9 +42,9 @@ export default function Testimonials() {
   return (
     <section style={{ background: colors.concrete }} className="py-20 md:py-28">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
-        .brand-font { font-family: 'Oswald', sans-serif; }
-        .body-font { font-family: 'Work Sans', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        .brand-font { font-family: 'Poppins', sans-serif; }
+        .body-font { font-family: 'Inter', sans-serif; }
         .arrow-btn { transition: background 0.15s ease; }
         .arrow-btn:hover { background: ${colors.orange}; }
         .arrow-btn:hover svg { color: #FFFFFF !important; }

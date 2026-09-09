@@ -5,10 +5,6 @@ import { ArrowUpRight, Building2, X, ChevronLeft, ChevronRight } from "lucide-re
 // import p1a from "../assets/project1-a.jpg";
 // import p1b from "../assets/project1-b.jpg";
 // import p2a from "../assets/project2-a.jpg";
-import residentialImg from "../assets/Residentail.jpg"; // pehle confirm karo ye spelling hi hai actual file ki
-import sport1 from "../assets/Sport1.jpg";
-import sport2 from "../assets/Sport2.jpg";
-import sport3 from "../assets/Sport3.jpg";
 
 const colors = {
   charcoal: "#221F1C",
@@ -28,7 +24,7 @@ const CATEGORIES = ["All", "Residential", "Commercial", "Infrastructure"];
 // Add as many photos per project as you like — the popup will let visitors
 // swipe/click through all of them.
 const PROJECTS = [
-    { name: "Vaishali Nagar Residency", category: "Residential", grade: "M25", volume: "1,200 m³", images: [residentialImg,sport1, sport2, sport3] },
+  { name: "Vaishali Nagar Residency", category: "Residential", grade: "M25", volume: "1,200 m³", images: [] },
   { name: "Sitapura Warehouse Complex", category: "Commercial", grade: "M30", volume: "3,400 m³", images: [] },
   { name: "NH-48 Flyover Support Piers", category: "Infrastructure", grade: "M40", volume: "5,000 m³", images: [] },
   { name: "Malviya Nagar Apartments", category: "Residential", grade: "M25", volume: "950 m³", images: [] },
@@ -66,9 +62,9 @@ export default function Projects() {
   return (
     <section id="projects" style={{ background: colors.concrete }} className="py-20 md:py-28">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
-        .brand-font { font-family: 'Oswald', sans-serif; }
-        .body-font { font-family: 'Work Sans', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        .brand-font { font-family: 'Poppins', sans-serif; }
+        .body-font { font-family: 'Inter', sans-serif; }
         .filter-pill { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; cursor: pointer; }
         .project-card { transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; }
         .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.12); }

@@ -64,10 +64,10 @@ export default function Navbar() {
   };
 
   return (
-    <div style={{ fontFamily: "'Work Sans', sans-serif" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
-        .brand-font { font-family: 'Oswald', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        .brand-font { font-family: 'Poppins', sans-serif; }
         .nav-link { position: relative; }
         .nav-link::after {
           content: '';
@@ -90,27 +90,6 @@ export default function Navbar() {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-
-      {/* Utility strip */}
-      <div style={{ background: colors.charcoal }} className="hidden md:block">
-        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between text-xs py-2.5">
-          <div className="flex items-center gap-6" style={{ color: colors.concreteMid }}>
-            <a href="tel:+919829000000" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone size={13} strokeWidth={2} />
-              <span>+91 98290 00000</span>
-            </a>
-            <a href="mailto:info@shreebalajireadymix.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Mail size={13} strokeWidth={2} />
-              <span>info@shreebalajireadymix.com</span>
-            </a>
-          </div>
-          <div className="flex items-center gap-1.5" style={{ color: colors.yellow }}>
-            <MapPin size={13} strokeWidth={2} />
-            <span className="tracking-wide">3 Plants Serving Jaipur &amp; Rajasthan</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main navbar */}
       <header
         style={{
@@ -155,7 +134,14 @@ export default function Navbar() {
                 Products
               </Link>
 
-              {/* Branches dropdown */}
+              <Link to="/projects" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+                Projects
+              </Link>
+              <Link to="/contact" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+                Contact
+              </Link>
+
+              {/* Branches dropdown — now last */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setBranchOpen((v) => !v)}
@@ -172,7 +158,7 @@ export default function Navbar() {
 
                 {branchOpen && (
                   <div
-                    className="absolute left-1/2 -translate-x-1/2 mt-5 w-[340px] mobile-panel"
+                    className="absolute right-0 mt-5 w-[340px] mobile-panel"
                     style={{ background: "#FFFFFF", border: `1px solid ${colors.concreteMid}`, boxShadow: "0 12px 32px rgba(0,0,0,0.14)" }}
                   >
                     <div style={{ background: colors.charcoal }} className="px-5 py-3">
@@ -205,13 +191,6 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
-              <Link to="/projects" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
-                Projects
-              </Link>
-              <Link to="/contact" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
-                Contact
-              </Link>
             </nav>
 
             {/* CTA + mobile toggle */}
@@ -241,7 +220,7 @@ export default function Navbar() {
         {mobileOpen && (
           <div className="lg:hidden mobile-panel" style={{ background: "#FFFFFF", borderTop: `1px solid ${colors.concreteMid}` }}>
             <div className="px-6 py-5 flex flex-col gap-1">
-              {NAV_LINKS.slice(0, 3).map((l) => (
+              {NAV_LINKS.map((l) => (
                 <Link
                   key={l.label}
                   to={l.to}
@@ -253,7 +232,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {/* Mobile branches accordion */}
+              {/* Mobile branches accordion — now last */}
               <div className="border-b" style={{ borderColor: colors.concrete }}>
                 <button
                   onClick={() => setMobileBranchOpen((v) => !v)}
@@ -281,18 +260,6 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
-              {NAV_LINKS.slice(3).map((l) => (
-                <Link
-                  key={l.label}
-                  to={l.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="brand-font text-base font-medium py-3 border-b"
-                  style={{ color: colors.ink, borderColor: colors.concrete }}
-                >
-                  {l.label}
-                </Link>
-              ))}
 
               <Link
                 to="/contact"
