@@ -123,21 +123,21 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-9">
-              <Link to="/" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+            <nav className="hidden lg:flex items-center gap-10 ml-10">
+              <Link to="/" className="nav-link brand-font text-base font-medium tracking-wide" style={{ color: colors.ink }}>
                 Home
               </Link>
-              <Link to="/about" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/about" className="nav-link brand-font text-base font-medium tracking-wide" style={{ color: colors.ink }}>
                 About Us
               </Link>
-              <Link to="/products" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/products" className="nav-link brand-font text-base font-medium tracking-wide" style={{ color: colors.ink }}>
                 Products
               </Link>
 
-              <Link to="/projects" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/projects" className="nav-link brand-font text-base font-medium tracking-wide" style={{ color: colors.ink }}>
                 Projects
               </Link>
-              <Link to="/contact" className="nav-link brand-font text-[15px] font-medium tracking-wide" style={{ color: colors.ink }}>
+              <Link to="/contact" className="nav-link brand-font text-base font-medium tracking-wide" style={{ color: colors.ink }}>
                 Contact
               </Link>
 
@@ -145,7 +145,7 @@ export default function Navbar() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setBranchOpen((v) => !v)}
-                  className="nav-link brand-font text-[15px] font-medium tracking-wide flex items-center gap-1"
+                  className="nav-link brand-font text-base font-medium tracking-wide flex items-center gap-1"
                   style={{ color: colors.ink }}
                 >
                   Branches

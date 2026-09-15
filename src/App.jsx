@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
-// import TruckBanner from "./Components/Truckbanner";
+import ScrollToHash from "./Components/ScrollToHash";
+// import TruckBanner from "./Components/TruckBanner";
 import Footer from "./Components/Footer";
 import WhatsAppButton from "./Components/WhatsAppButton";
-import CallButton from "./Components/Callbutton";
+import CallButton from "./Components/CallButton";
 import Home from "./Components/pages/Home";
 import AboutPage from "./Components/pages/AboutPage";
 import ProductsPage from "./Components/pages/ProductsPage";
@@ -14,6 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <ScrollToHash />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />

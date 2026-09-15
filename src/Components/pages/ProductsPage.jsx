@@ -17,24 +17,28 @@ const colors = {
 const PRODUCTS = [
   {
     icon: Layers,
+    slug: "ready-mix-concrete",
     name: "Ready Mix Concrete",
     tag: "M15 – M40 Grades",
     desc: "Batch-tested RMC for slabs, footings, columns, and structural pours — available in every standard grade with custom mix design on request.",
   },
   {
     icon: Mountain,
+    slug: "m-sand",
     name: "M-Sand",
     tag: "Manufactured Sand",
     desc: "Consistent particle size and zero silt content — a reliable, eco-friendly alternative to river sand for plastering and concrete work.",
   },
   {
     icon: Waves,
+    slug: "plaster-sand",
     name: "Plaster Sand",
     tag: "Fine Graded",
     desc: "Finely graded sand purpose-built for smooth plastering finishes, screened to remove impurities and oversized particles.",
   },
   {
     icon: Package,
+    slug: "aggregates-grit",
     name: "Aggregates & Grit",
     tag: "10mm / 20mm / 40mm",
     desc: "Crushed stone aggregates in multiple sizes for concrete, road base, and drainage work — sourced and quality-checked in-house.",
@@ -56,9 +60,9 @@ export default function Products() {
   return (
     <section id="products" style={{ background: colors.charcoal }} className="py-20 md:py-28">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
-        .brand-font { font-family: 'Oswald', sans-serif; }
-        .body-font { font-family: 'Work Sans', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        .brand-font { font-family: 'Poppins', sans-serif; }
+        .body-font { font-family: 'Inter', sans-serif; }
         .product-card { transition: border-color 0.2s ease, transform 0.2s ease; }
         .product-card:hover { border-color: ${colors.orange}; transform: translateY(-4px); }
         .grade-pill { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; cursor: pointer; }
@@ -96,8 +100,9 @@ export default function Products() {
             return (
               <div
                 key={p.name}
+                id={p.slug}
                 className="product-card p-6 flex flex-col"
-                style={{ background: colors.charcoalSoft, border: `1px solid rgba(255,255,255,0.08)` }}
+                style={{ background: colors.charcoalSoft, border: `1px solid rgba(255,255,255,0.08)`, scrollMarginTop: "100px" }}
               >
                 <div
                   className="inline-flex items-center justify-center w-12 h-12 mb-5"

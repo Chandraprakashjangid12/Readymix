@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Building2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Building2, X, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 
 // Import your project photos here, e.g.:
 // import p1a from "../assets/project1-a.jpg";
@@ -24,12 +24,12 @@ const CATEGORIES = ["All", "Residential", "Commercial", "Infrastructure"];
 // Add as many photos per project as you like — the popup will let visitors
 // swipe/click through all of them.
 const PROJECTS = [
-  { name: "Vaishali Nagar Residency", category: "Residential", grade: "M25", volume: "1,200 m³", images: [] },
-  { name: "Sitapura Warehouse Complex", category: "Commercial", grade: "M30", volume: "3,400 m³", images: [] },
-  { name: "NH-48 Flyover Support Piers", category: "Infrastructure", grade: "M40", volume: "5,000 m³", images: [] },
-  { name: "Malviya Nagar Apartments", category: "Residential", grade: "M25", volume: "950 m³", images: [] },
-  { name: "Ajmer Road Retail Plaza", category: "Commercial", grade: "M30", volume: "2,100 m³", images: [] },
-  { name: "Kotputli Bridge Widening", category: "Infrastructure", grade: "M35", volume: "4,200 m³", images: [] },
+  { name: "Vaishali Nagar Residency", location: "Vaishali Nagar, Jaipur", category: "Residential", grade: "M25", volume: "1,200 m³", images: [] },
+  { name: "Sitapura Warehouse Complex", location: "Sitapura Industrial Area, Jaipur", category: "Commercial", grade: "M30", volume: "3,400 m³", images: [] },
+  { name: "NH-48 Flyover Support Piers", location: "NH-48, Kotputli", category: "Infrastructure", grade: "M40", volume: "5,000 m³", images: [] },
+  { name: "Malviya Nagar Apartments", location: "Malviya Nagar, Jaipur", category: "Residential", grade: "M25", volume: "950 m³", images: [] },
+  { name: "Ajmer Road Retail Plaza", location: "Ajmer Road, Jaipur", category: "Commercial", grade: "M30", volume: "2,100 m³", images: [] },
+  { name: "Kotputli Bridge Widening", location: "Kotputli, Rajasthan", category: "Infrastructure", grade: "M35", volume: "4,200 m³", images: [] },
 ];
 
 export default function Projects() {
@@ -62,9 +62,9 @@ export default function Projects() {
   return (
     <section id="projects" style={{ background: colors.concrete }} className="py-20 md:py-28">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap');
-        .brand-font { font-family: 'Oswald', sans-serif; }
-        .body-font { font-family: 'Work Sans', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        .brand-font { font-family: 'Poppins', sans-serif; }
+        .body-font { font-family: 'Inter', sans-serif; }
         .filter-pill { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; cursor: pointer; }
         .project-card { transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; }
         .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.12); }
@@ -151,12 +151,16 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* Details */}
+                {/* Details — image → name → location → details → CTA */}
                 <div className="p-5">
-                  <div className="brand-font text-base font-semibold mb-2" style={{ color: colors.ink }}>
+                  <div className="brand-font text-base font-semibold mb-1.5" style={{ color: colors.ink }}>
                     {p.name}
                   </div>
-                  <div className="flex items-center gap-4 body-font text-xs" style={{ color: colors.steel }}>
+                  <div className="flex items-center gap-1.5 body-font text-xs mb-3" style={{ color: colors.steel }}>
+                    <MapPin size={12} strokeWidth={2} style={{ color: colors.orange }} />
+                    {p.location}
+                  </div>
+                  <div className="flex items-center gap-4 body-font text-xs pt-3" style={{ color: colors.steel, borderTop: `1px solid ${colors.concrete}` }}>
                     <span>Grade: <span style={{ color: colors.ink, fontWeight: 500 }}>{p.grade}</span></span>
                     <span>Volume: <span style={{ color: colors.ink, fontWeight: 500 }}>{p.volume}</span></span>
                   </div>

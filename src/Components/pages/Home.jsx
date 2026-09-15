@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowRight, ShieldCheck, Clock, Users, Award } from "lucide-react";
 import Hero from "../Hero";
+import TrustSection from "../TrustSection";      // ← naya
+import BranchesSection from "../BranchesSection"; // ← naya
 import Testimonials from "../Testimonials";
 
 const colors = {
@@ -25,6 +27,10 @@ export default function Home() {
   return (
     <>
       <Hero />
+            <TrustSection />
+             <Testimonials />
+      <BranchesSection />
+
 
       {/* Pillars of strength */}
       <section style={{ background: colors.ink }} className="py-10">

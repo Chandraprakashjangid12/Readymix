@@ -13,14 +13,17 @@ const colors = {
   ink: "#1A1815",
 };
 
-const GENERAL_LINKS_COL1 = [
-  { label: "Home", to: "/" },
-  { label: "Products", to: "/products" },
-  { label: "Projects", to: "/projects" },
+const SERVICES = [
+  { label: "Ready Mix Concrete", to: "/products#ready-mix-concrete" },
+  { label: "M-Sand", to: "/products#m-sand" },
+  { label: "Plaster Sand", to: "/products#plaster-sand" },
+  { label: "Aggregates & Grit", to: "/products#aggregates-grit" },
 ];
 
-const GENERAL_LINKS_COL2 = [
+const QUICK_LINKS = [
+  { label: "Home", to: "/" },
   { label: "About Us", to: "/about" },
+  { label: "Projects", to: "/projects" },
   { label: "Contact Us", to: "/contact" },
 ];
 
@@ -44,7 +47,7 @@ export default function Footer() {
         .footer-link { transition: color 0.15s ease, padding-left 0.15s ease; }
         .footer-link:hover { color: #FFFFFF; padding-left: 4px; }
         .social-icon { transition: background 0.15s ease, transform 0.15s ease; }
-        .social-icon:hover { background: ${colors.orange}; transform: translateY(-3px); }
+        .social-icon:hover { background: ${colors.orangeDark}; transform: translateY(-3px); }
         .newsletter-input { transition: border-color 0.15s ease; }
         .newsletter-input:focus { outline: none; border-color: ${colors.orange}; }
         .subscribe-btn { transition: background 0.2s ease; }
@@ -226,11 +229,24 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* General links */}
+          {/* Services */}
           <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">General</div>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {GENERAL_LINKS_COL1.map((l, i) => (
+            <div className="brand-font text-2xl font-semibold text-white mb-7">Services</div>
+            <div className="flex flex-col gap-4">
+              {SERVICES.map((l) => (
+                <Link key={l.label} to={l.to} className="footer-link flex items-center gap-1.5 body-font text-sm" style={{ color: colors.concreteMid }}>
+                  <ChevronRight size={13} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <div className="brand-font text-2xl font-semibold text-white mb-7">Quick Links</div>
+            <div className="flex flex-col gap-4">
+              {QUICK_LINKS.map((l, i) => (
                 <Link
                   key={l.label}
                   to={l.to}
@@ -241,25 +257,23 @@ export default function Footer() {
                   {l.label}
                 </Link>
               ))}
-              {GENERAL_LINKS_COL2.map((l) => (
-                <Link key={l.label} to={l.to} className="footer-link flex items-center gap-1.5 body-font text-sm" style={{ color: colors.concreteMid }}>
-                  <ChevronRight size={13} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
-                  {l.label}
-                </Link>
-              ))}
             </div>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">Contact Info</div>
+            <div className="brand-font text-2xl font-semibold text-white mb-7">Contact</div>
             <div className="flex flex-col gap-5">
               <div className="flex items-start gap-2.5 body-font text-sm leading-relaxed" style={{ color: colors.concreteMid }}>
                 <MapPin size={17} strokeWidth={2} style={{ marginTop: 2, flexShrink: 0, color: colors.orange }} />
                 <span>Shree Balaji Ready Mix, Sitapura Industrial Area, Jaipur, Rajasthan – 302022</span>
               </div>
-              <a href="tel:+919829000000" className="footer-link flex items-center gap-2.5 body-font text-sm" style={{ color: colors.concreteMid }}>
-                <Phone size={17} strokeWidth={2} style={{ color: colors.orange, flexShrink: 0 }} />
+              <a
+                href="tel:+919829000000"
+                className="footer-link flex items-center gap-2.5 body-font text-base font-semibold"
+                style={{ color: "#FFFFFF" }}
+              >
+                <Phone size={18} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
                 +91 98290 00000
               </a>
               <div>
@@ -273,27 +287,34 @@ export default function Footer() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Newsletter + social */}
+        {/* Newsletter + Social — its own full-width row, clearly separated */}
+        <div
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mt-14 pt-10"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+        >
           <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">Newsletter</div>
-            <p className="body-font text-sm leading-relaxed mb-5" style={{ color: colors.concreteMid }}>
-              Subscribe to get our latest updates &amp; news
+            <div className="brand-font text-lg font-semibold text-white mb-1">Stay in the loop</div>
+            <p className="body-font text-sm" style={{ color: colors.concreteMid }}>
+              Subscribe for updates on new plants, capacity, and pricing.
             </p>
+          </div>
 
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {subscribed ? (
               <div className="body-font text-sm font-medium" style={{ color: colors.yellow }}>
                 Thanks — you're subscribed!
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-0">
+              <form onSubmit={handleSubscribe} className="flex gap-0 w-full sm:w-auto">
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your mail address"
-                  className="newsletter-input body-font text-sm px-4 py-3.5 flex-1 border min-w-0"
+                  className="newsletter-input body-font text-sm px-4 py-3.5 border min-w-0 flex-1 sm:flex-initial sm:w-[220px]"
                   style={{ background: colors.charcoalSoft, borderColor: "transparent", color: "#FFFFFF" }}
                 />
                 <button
@@ -307,17 +328,17 @@ export default function Footer() {
               </form>
             )}
 
-            <div className="flex items-center gap-2.5 mt-7">
+            <div className="flex items-center gap-3">
               {["Facebook", "Instagram", "LinkedIn", "YouTube"].map((label) => (
                 <a
                   key={label}
                   href="#"
-                  className="social-icon flex items-center justify-center w-10 h-10"
-                  style={{ background: colors.charcoalSoft }}
+                  className="social-icon flex items-center justify-center w-12 h-12"
+                  style={{ background: colors.orange }}
                   aria-label={label}
                   title={label}
                 >
-                  <Globe size={17} strokeWidth={2} className="text-white" />
+                  <Globe size={19} strokeWidth={2} className="text-white" />
                 </a>
               ))}
             </div>

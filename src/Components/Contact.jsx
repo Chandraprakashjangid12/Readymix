@@ -27,7 +27,7 @@ const BRANCHES = [
     name: "Jaipur — Ajmer Road",
     area: "Ajmer Road, Jaipur",
     phone: "+91 98290 00002",
-    mapLink: "https://www.google.com/maps?q=Ajmer+Road+Jaipur&output=embed",
+    mapLink: "https://maps.app.goo.gl/yasjfiDrRzpbAGFeA",
     directionsLink: "https://www.google.com/maps/dir/?api=1&destination=Ajmer+Road+Jaipur",
   },
   {

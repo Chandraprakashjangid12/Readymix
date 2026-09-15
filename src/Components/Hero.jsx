@@ -6,8 +6,6 @@ import { ArrowRight, Phone, ChevronLeft, ChevronRight, ShieldCheck } from "lucid
 // pouring, finished projects. Reusing one as a placeholder for all slots
 // for now so the slider looks complete; replace filenames as you get them.
 import heroImage from "../assets/plant-photo.jpg";
-import heroImage1 from "../assets/project2.jpg";
-import heroImage2 from "../assets/project2-a.jpg";
 
 const colors = {
   charcoal: "#221F1C",
@@ -34,19 +32,19 @@ const SLIDES = [
   {
     image: heroImage,
     eyebrow: "Trusted Ready Mix Supplier Since 2009",
-    headline: ["Concrete strength,", "poured on time,", "every time."],
+    headline: ["Concrete strength,", "poured on time."],
     sub: "High-grade M-sand and RMC concrete from three plants across Jaipur, delivered by our own fleet.",
   },
   {
-    image: heroImage1,
+    image: heroImage,
     eyebrow: "Our Own Transit Mixer Fleet",
-    headline: ["On the road,", "on schedule,", "on your site."],
+    headline: ["On the road,", "on your site."],
     sub: "No third-party delays — our trucks are dispatched directly from our plants to yours.",
   },
   {
-    image: heroImage2,
+    image: heroImage,
     eyebrow: "Lab-Tested, Every Single Batch",
-    headline: ["Quality you can", "build a foundation", "on."],
+    headline: ["Quality built to", "last a lifetime."],
     sub: "M15 to M40 grades, tested for slump and strength before a single truck leaves the plant.",
   },
 ];
@@ -132,7 +130,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          background: `linear-gradient(100deg, rgba(26,24,21,0.94) 0%, rgba(26,24,21,0.75) 38%, rgba(26,24,21,0.35) 62%, rgba(26,24,21,0.15) 100%)`,
+          background: `linear-gradient(100deg, rgba(26,24,21,0.97) 0%, rgba(26,24,21,0.85) 38%, rgba(26,24,21,0.5) 62%, rgba(26,24,21,0.25) 100%)`,
           zIndex: 2,
         }}
       />
@@ -140,7 +138,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          background: `linear-gradient(180deg, rgba(26,24,21,0.2) 0%, rgba(26,24,21,0) 30%, rgba(26,24,21,0.5) 100%)`,
+          background: `linear-gradient(180deg, rgba(26,24,21,0.35) 0%, rgba(26,24,21,0.1) 30%, rgba(26,24,21,0.6) 100%)`,
           zIndex: 2,
         }}
       />
@@ -158,9 +156,9 @@ export default function Hero() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full flex-1 flex items-center" style={{ zIndex: 3 }}>
-        <div key={active} className="slide-text max-w-2xl py-14 md:py-10">
+        <div key={active} className="slide-text max-w-2xl py-16 md:py-14">
           <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 mb-7"
+            className="inline-flex items-center gap-2 px-3 py-1.5 mb-8"
             style={{ background: "rgba(217,83,30,0.16)", border: `1px solid ${colors.orange}`, backdropFilter: "blur(4px)" }}
           >
             <ShieldCheck size={15} strokeWidth={2} style={{ color: colors.orange }} />
@@ -170,31 +168,29 @@ export default function Hero() {
           </div>
 
           <h1
-            className="brand-font font-bold leading-[1.06] tracking-tight text-white"
-            style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.5rem)", textShadow: "0 2px 24px rgba(0,0,0,0.3)" }}
+            className="brand-font font-bold leading-[1.08] tracking-tight text-white"
+            style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.5rem)", textShadow: "0 2px 28px rgba(0,0,0,0.55)" }}
           >
             {slide.headline[0]}
             <br />
-            {slide.headline[1]}
-            <br />
-            <span style={{ color: colors.orange }}>{slide.headline[2]}</span>
+            <span style={{ color: colors.orange }}>{slide.headline[1]}</span>
           </h1>
 
           <p
-            className="body-font mt-6 max-w-lg leading-relaxed"
+            className="body-font mt-7 max-w-lg leading-relaxed"
             style={{ color: colors.concreteMid, fontSize: "1.1rem" }}
           >
             {slide.sub}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 mt-10">
+          <div className="flex flex-wrap items-center gap-4 mt-11">
             <Link
               to="/contact"
-              className="hero-cta flex items-center gap-2 brand-font text-sm font-semibold tracking-wide text-white px-7 py-4"
-              style={{ background: colors.orange }}
+              className="hero-cta flex items-center gap-2 brand-font text-base font-semibold tracking-wide text-white px-8 py-4"
+              style={{ background: colors.orange, boxShadow: "0 8px 28px rgba(217,83,30,0.45)" }}
             >
               Request a Quote
-              <ArrowRight size={17} strokeWidth={2.5} />
+              <ArrowRight size={18} strokeWidth={2.5} />
             </Link>
             <a
               href="tel:+919829000000"

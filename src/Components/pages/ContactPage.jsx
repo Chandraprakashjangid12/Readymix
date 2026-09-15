@@ -41,16 +41,46 @@ const BRANCHES = [
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", branch: "", message: "" });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
   const [activeMap, setActiveMap] = useState(0);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    // clear that field's error as the person starts fixing it
+    if (errors[name]) setErrors({ ...errors, [name]: null });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!form.name.trim()) {
+      newErrors.name = "Please enter your name.";
+    }
+    const phoneDigits = form.phone.replace(/[^0-9]/g, "");
+    if (!form.phone.trim()) {
+      newErrors.phone = "Please enter your phone number.";
+    } else if (phoneDigits.length < 10 || phoneDigits.length > 13) {
+      newErrors.phone = "Enter a valid phone number (10 digits).";
+    }
+    if (!form.branch) {
+      newErrors.branch = "Please select a plant.";
+    }
+    return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     // Hook this up to your backend/email service later
     console.log("Form submitted:", form);
+    setSubmitted(true);
+    setForm({ name: "", phone: "", branch: "", message: "" });
+    setErrors({});
   };
 
   return (
@@ -95,7 +125,33 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-[1fr_0.85fr] gap-12">
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-7 md:p-9" style={{ background: "#FFFFFF", border: `1px solid ${colors.concreteMid}` }}>
+          {submitted ? (
+            <div
+              className="p-9 flex flex-col items-center justify-center text-center"
+              style={{ background: "#FFFFFF", border: `1px solid ${colors.concreteMid}` }}
+            >
+              <div
+                className="flex items-center justify-center w-16 h-16 mb-5"
+                style={{ background: "rgba(217,83,30,0.1)" }}
+              >
+                <Send size={28} strokeWidth={2} style={{ color: colors.orange }} />
+              </div>
+              <div className="brand-font text-xl font-semibold mb-2" style={{ color: colors.ink }}>
+                Request received!
+              </div>
+              <p className="body-font text-sm mb-6" style={{ color: colors.steel, maxWidth: 360 }}>
+                Thanks for reaching out — our team will call you back with a quote, usually within the hour.
+              </p>
+              <button
+                onClick={() => setSubmitted(false)}
+                className="body-font text-sm font-medium"
+                style={{ color: colors.orange }}
+              >
+                Send another request
+              </button>
+            </div>
+          ) : (
+          <form onSubmit={handleSubmit} noValidate className="p-7 md:p-9" style={{ background: "#FFFFFF", border: `1px solid ${colors.concreteMid}` }}>
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="body-font text-xs font-medium block mb-2" style={{ color: colors.steel }}>
@@ -106,11 +162,15 @@ export default function Contact() {
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  required
                   className="form-input w-full px-4 py-3 text-sm border"
-                  style={{ borderColor: colors.concreteMid, color: colors.ink }}
+                  style={{ borderColor: errors.name ? "#D9531E" : colors.concreteMid, color: colors.ink }}
                   placeholder="Ramesh Sharma"
                 />
+                {errors.name && (
+                  <div className="body-font text-xs mt-1.5" style={{ color: colors.orange }}>
+                    {errors.name}
+                  </div>
+                )}
               </div>
               <div>
                 <label className="body-font text-xs font-medium block mb-2" style={{ color: colors.steel }}>
@@ -121,11 +181,15 @@ export default function Contact() {
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
-                  required
                   className="form-input w-full px-4 py-3 text-sm border"
-                  style={{ borderColor: colors.concreteMid, color: colors.ink }}
+                  style={{ borderColor: errors.phone ? "#D9531E" : colors.concreteMid, color: colors.ink }}
                   placeholder="+91 98290 00000"
                 />
+                {errors.phone && (
+                  <div className="body-font text-xs mt-1.5" style={{ color: colors.orange }}>
+                    {errors.phone}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -138,7 +202,7 @@ export default function Contact() {
                 value={form.branch}
                 onChange={handleChange}
                 className="form-input w-full px-4 py-3 text-sm border bg-white"
-                style={{ borderColor: colors.concreteMid, color: colors.ink }}
+                style={{ borderColor: errors.branch ? "#D9531E" : colors.concreteMid, color: colors.ink }}
               >
                 <option value="">Select a plant</option>
                 {BRANCHES.map((b) => (
@@ -147,6 +211,11 @@ export default function Contact() {
                   </option>
                 ))}
               </select>
+              {errors.branch && (
+                <div className="body-font text-xs mt-1.5" style={{ color: colors.orange }}>
+                  {errors.branch}
+                </div>
+              )}
             </div>
 
             <div className="mt-5">
@@ -173,6 +242,7 @@ export default function Contact() {
               <Send size={15} strokeWidth={2.5} />
             </button>
           </form>
+          )}
 
           {/* Contact info + branches */}
           <div className="flex flex-col gap-5">
