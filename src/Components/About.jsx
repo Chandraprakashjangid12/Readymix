@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Factory, Users, Award } from "lucide-react";
+import { CheckCircle2, Factory, Users, Award, ArrowRight } from "lucide-react";
 
 const colors = {
   charcoal: "#221F1C",
@@ -37,15 +37,26 @@ const VALUES = [
   },
 ];
 
+const STATS = [
+  { value: "15+", label: "Years in Business" },
+  { value: "3", label: "Batching Plants" },
+  { value: "500+", label: "Projects Delivered" },
+  { value: "0", label: "Compromise on Quality" },
+];
+
 export default function About() {
   return (
-    <section id="about" style={{ background: colors.concrete }} className="py-20 md:py-28">
+    <section id="about" style={{ background: colors.concrete }} className="py-14 md:py-20">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
         .brand-font { font-family: 'Poppins', sans-serif; }
         .body-font { font-family: 'Inter', sans-serif; }
         .value-card { transition: border-color 0.2s ease, transform 0.2s ease; }
         .value-card:hover { border-color: ${colors.orange}; transform: translateY(-3px); }
+        .cta-secondary { transition: background 0.2s ease, color 0.2s ease; }
+        .cta-secondary:hover { background: ${colors.ink}; color: #fff; }
+        .stat-item { transition: transform 0.2s ease; }
+        .stat-item:hover { transform: translateY(-2px); }
       `}</style>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -86,13 +97,47 @@ export default function About() {
               answered the phone.
             </p>
 
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-6 py-3.5 mt-8"
-              style={{ background: colors.orange }}
+            {/* CTA row */}
+            <div className="flex flex-wrap items-center gap-4 mt-8">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-6 py-3.5"
+                style={{ background: colors.orange }}
+              >
+                Talk to Our Team
+                <ArrowRight size={16} strokeWidth={2.5} />
+              </Link>
+              <Link
+                to="/projects"
+                className="cta-secondary inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide px-6 py-3.5"
+                style={{ border: `1px solid ${colors.ink}`, color: colors.ink }}
+              >
+                View Our Projects
+              </Link>
+            </div>
+
+            {/* Stats strip */}
+            <div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 pt-6"
+              style={{ borderTop: `1px solid ${colors.concreteMid}` }}
             >
-              Talk to Our Team
-            </Link>
+              {STATS.map((s) => (
+                <div key={s.label} className="stat-item">
+                  <div
+                    className="brand-font font-bold leading-none"
+                    style={{ fontSize: "2rem", color: colors.orange }}
+                  >
+                    {s.value}
+                  </div>
+                  <div
+                    className="body-font text-xs mt-2 leading-snug"
+                    style={{ color: colors.steel }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right: value cards grid */}
