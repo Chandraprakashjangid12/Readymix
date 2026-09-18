@@ -4,7 +4,7 @@ import ScrollToHash from "./Components/ScrollToHash";
 // import TruckBanner from "./Components/TruckBanner";
 import Footer from "./Components/Footer";
 import WhatsAppButton from "./Components/WhatsAppButton";
-import CallButton from "./Components/CallButton";
+import CallButton from "./Components/Callbutton";
 import Home from "./Components/pages/Home";
 import AboutPage from "./Components/pages/AboutPage";
 import ProductsPage from "./Components/pages/ProductsPage";
