@@ -5,6 +5,10 @@ import { ArrowUpRight, Building2, X, ChevronLeft, ChevronRight } from "lucide-re
 // import p1a from "../assets/project1-a.jpg";
 // import p1b from "../assets/project1-b.jpg";
 // import p2a from "../assets/project2-a.jpg";
+import p1a from "../assets/p1.jpeg";
+import p1b from "../assets/p2.jpeg";
+import p2a from "../assets/p3.jpeg";
+import p2b from "../assets/p4.jpeg";
 
 const colors = {
   charcoal: "#221F1C",
@@ -23,13 +27,38 @@ const CATEGORIES = ["All", "Residential", "Commercial", "Infrastructure"];
 // Each project now takes an ARRAY of images in "images", not a single "image".
 // Add as many photos per project as you like — the popup will let visitors
 // swipe/click through all of them.
+// const PROJECTS = [
+//   { name: "Vaishali Nagar Residency", category: "Residential", grade: "M25", volume: "1,200 m³", images: [p1a, p1b,p2a,p2b] },
+//   { name: "Sitapura Warehouse Complex", category: "Commercial", grade: "M30", volume: "3,400 m³", images: [] },
+//   { name: "NH-48 Flyover Support Piers", category: "Infrastructure", grade: "M40", volume: "5,000 m³", images: [] },
+//   { name: "Malviya Nagar Apartments", category: "Residential", grade: "M25", volume: "950 m³", images: [] },
+//   { name: "Ajmer Road Retail Plaza", category: "Commercial", grade: "M30", volume: "2,100 m³", images: [] },
+//   { name: "Kotputli Bridge Widening", category: "Infrastructure", grade: "M35", volume: "4,200 m³", images: [] },
+// ];
 const PROJECTS = [
-  { name: "Vaishali Nagar Residency", category: "Residential", grade: "M25", volume: "1,200 m³", images: [] },
-  { name: "Sitapura Warehouse Complex", category: "Commercial", grade: "M30", volume: "3,400 m³", images: [] },
-  { name: "NH-48 Flyover Support Piers", category: "Infrastructure", grade: "M40", volume: "5,000 m³", images: [] },
-  { name: "Malviya Nagar Apartments", category: "Residential", grade: "M25", volume: "950 m³", images: [] },
-  { name: "Ajmer Road Retail Plaza", category: "Commercial", grade: "M30", volume: "2,100 m³", images: [] },
-  { name: "Kotputli Bridge Widening", category: "Infrastructure", grade: "M35", volume: "4,200 m³", images: [] },
+  {
+    name: "Vaishali Nagar Residency",
+    category: "Residential",
+    grade: "M25",
+    volume: "1,200 m³",
+    images: [p1a, p1b, p2a, p2b],
+  },
+
+  {
+    name: "Sitapura Warehouse Complex",
+    category: "Commercial",
+    grade: "M30",
+    volume: "3,400 m³",
+    images: [],
+  },
+
+  {
+    name: "NH-48 Flyover Support Piers",
+    category: "Infrastructure",
+    grade: "M40",
+    volume: "5,000 m³",
+    images: [],
+  },
 ];
 
 export default function Projects() {

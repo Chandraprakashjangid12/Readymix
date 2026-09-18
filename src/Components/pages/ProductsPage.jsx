@@ -17,31 +17,27 @@ const colors = {
 const PRODUCTS = [
   {
     icon: Layers,
-    slug: "ready-mix-concrete",
     name: "Ready Mix Concrete",
-    tag: "M15 – M40 Grades",
-    desc: "Batch-tested RMC for slabs, footings, columns, and structural pours — available in every standard grade with custom mix design on request.",
+    tag: "M15 – M40",
+    desc: "Batch-tested RMC for every structural grade.",
   },
   {
     icon: Mountain,
-    slug: "m-sand",
     name: "M-Sand",
     tag: "Manufactured Sand",
-    desc: "Consistent particle size and zero silt content — a reliable, eco-friendly alternative to river sand for plastering and concrete work.",
+    desc: "Consistent grade, zero silt, eco-friendly.",
   },
   {
     icon: Waves,
-    slug: "plaster-sand",
     name: "Plaster Sand",
     tag: "Fine Graded",
-    desc: "Finely graded sand purpose-built for smooth plastering finishes, screened to remove impurities and oversized particles.",
+    desc: "Screened fine sand for smooth finishes.",
   },
   {
     icon: Package,
-    slug: "aggregates-grit",
     name: "Aggregates & Grit",
-    tag: "10mm / 20mm / 40mm",
-    desc: "Crushed stone aggregates in multiple sizes for concrete, road base, and drainage work — sourced and quality-checked in-house.",
+    tag: "10 / 20 / 40mm",
+    desc: "Crushed stone, quality-checked in-house.",
   },
 ];
 
@@ -58,21 +54,46 @@ export default function Products() {
   const [activeGrade, setActiveGrade] = useState("M25");
 
   return (
-    <section id="products" style={{ background: colors.charcoal }} className="py-20 md:py-28">
+    <section id="products" style={{ background: colors.charcoal }} className="py-16 md:py-24">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
         .brand-font { font-family: 'Poppins', sans-serif; }
         .body-font { font-family: 'Inter', sans-serif; }
-        .product-card { transition: border-color 0.2s ease, transform 0.2s ease; }
-        .product-card:hover { border-color: ${colors.orange}; transform: translateY(-4px); }
-        .grade-pill { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; cursor: pointer; }
+
+        /* subtle "dancing" bounce on hover — springy but restrained */
+        .product-card {
+          transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                      border-color 0.25s ease,
+                      box-shadow 0.35s ease;
+        }
+        .product-card:hover {
+          transform: translateY(-8px) scale(1.015);
+          border-color: ${colors.orange};
+          box-shadow: 0 16px 32px rgba(0,0,0,0.28);
+        }
+        .product-icon {
+          transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease;
+        }
+        .product-card:hover .product-icon {
+          transform: translateY(-3px) rotate(-4deg);
+          background: ${colors.orangeDark};
+        }
+        .quote-link { transition: gap 0.2s ease, color 0.2s ease; }
+        .quote-link:hover { gap: 8px; color: ${colors.yellow}; }
+        .quote-link svg { transition: transform 0.2s ease; }
+        .quote-link:hover svg { transform: translateX(2px); }
+
+        .grade-pill { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; cursor: pointer; }
+        .grade-pill:hover { transform: translateY(-2px); }
+        .ask-btn { transition: background 0.2s ease, transform 0.2s ease; }
+        .ask-btn:hover { background: ${colors.orangeDark}; transform: translateY(-2px); }
       `}</style>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        {/* Header */}
-        <div className="max-w-2xl mb-14">
+        {/* Header — trimmed to essentials */}
+        <div className="max-w-xl mb-10 md:mb-12">
           <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 mb-5"
             style={{ background: "rgba(217,83,30,0.12)", border: `1px solid ${colors.orange}` }}
           >
             <span className="body-font text-xs font-medium tracking-wide" style={{ color: colors.yellow }}>
@@ -81,37 +102,30 @@ export default function Products() {
           </div>
           <h2
             className="brand-font font-semibold leading-[1.1] tracking-tight text-white"
-            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+            style={{ fontSize: "clamp(1.85rem, 3.5vw, 2.6rem)" }}
           >
-            Materials built for
-            <br />
-            every grade of work.
+            Materials built for every grade of work.
           </h2>
-          <p className="body-font mt-5 leading-relaxed" style={{ color: colors.concreteMid, fontSize: "1.05rem" }}>
-            From foundation-grade concrete to fine plastering sand — every batch
-            is tested before it leaves our plants.
-          </p>
         </div>
 
-        {/* Product cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+        {/* Product cards — compact, clean */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
           {PRODUCTS.map((p) => {
             const Icon = p.icon;
             return (
               <div
                 key={p.name}
-                id={p.slug}
-                className="product-card p-6 flex flex-col"
-                style={{ background: colors.charcoalSoft, border: `1px solid rgba(255,255,255,0.08)`, scrollMarginTop: "100px" }}
+                className="product-card p-6 rounded-xl flex flex-col"
+                style={{ background: colors.charcoalSoft, border: `1px solid rgba(255,255,255,0.08)` }}
               >
                 <div
-                  className="inline-flex items-center justify-center w-12 h-12 mb-5"
+                  className="product-icon inline-flex items-center justify-center w-11 h-11 rounded-lg mb-4"
                   style={{ background: colors.orange }}
                 >
-                  <Icon size={22} strokeWidth={2} className="text-white" />
+                  <Icon size={20} strokeWidth={2} className="text-white" />
                 </div>
-                <div className="brand-font text-lg font-semibold text-white mb-1">{p.name}</div>
-                <div className="body-font text-xs font-medium mb-3" style={{ color: colors.yellow }}>
+                <div className="brand-font text-base font-semibold text-white mb-1">{p.name}</div>
+                <div className="body-font text-xs font-medium mb-2.5" style={{ color: colors.yellow }}>
                   {p.tag}
                 </div>
                 <p className="body-font text-sm leading-relaxed flex-1" style={{ color: colors.concreteMid }}>
@@ -119,7 +133,7 @@ export default function Products() {
                 </p>
                 <Link
                   to="/contact"
-                  className="body-font text-sm font-medium mt-5 inline-flex items-center gap-1.5"
+                  className="quote-link body-font text-sm font-medium mt-4 inline-flex items-center gap-1.5"
                   style={{ color: colors.orange }}
                 >
                   Request Quote
@@ -130,33 +144,33 @@ export default function Products() {
           })}
         </div>
 
-        {/* RMC grade selector */}
-        <div className="p-8 md:p-10" style={{ background: colors.concrete }}>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+        {/* RMC grade selector — kept, tightened */}
+        <div className="p-6 md:p-8 rounded-xl" style={{ background: colors.concrete }}>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-6">
             <div>
-              <div className="brand-font text-xl font-semibold" style={{ color: colors.ink }}>
+              <div className="brand-font text-lg font-semibold" style={{ color: colors.ink }}>
                 RMC Grade Guide
               </div>
-              <div className="body-font text-sm mt-1" style={{ color: colors.steel }}>
+              <div className="body-font text-sm mt-0.5" style={{ color: colors.steel }}>
                 Tap a grade to see where it's typically used
               </div>
             </div>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-5 py-3 self-start"
+              className="ask-btn inline-flex items-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-5 py-2.5 rounded-md self-start"
               style={{ background: colors.orange }}
             >
-              Not Sure Which Grade? Ask Us
+              Not Sure? Ask Us
               <ArrowRight size={15} strokeWidth={2.5} />
             </Link>
           </div>
 
-          <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-wrap gap-2.5 mb-5">
             {RMC_GRADES.map((g) => (
               <button
                 key={g.grade}
                 onClick={() => setActiveGrade(g.grade)}
-                className="grade-pill brand-font text-sm font-medium px-5 py-2.5 border"
+                className="grade-pill brand-font text-sm font-medium px-4 py-2 rounded-md border"
                 style={{
                   background: activeGrade === g.grade ? colors.orange : "#FFFFFF",
                   color: activeGrade === g.grade ? "#FFFFFF" : colors.ink,

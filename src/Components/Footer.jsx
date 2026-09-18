@@ -1,358 +1,294 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Send, Globe, Download, ChevronRight } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
+// Matches the color palette used across Hero / TrustSection / Testimonials
 const colors = {
+  ink: "#1A1815",
   charcoal: "#221F1C",
   charcoalSoft: "#33302B",
+  concrete: "#EDEAE2",
   concreteMid: "#D8D2C4",
   steel: "#6B6459",
   orange: "#D9531E",
   orangeDark: "#B8451A",
   yellow: "#F2B705",
-  ink: "#1A1815",
+  white: "#FFFFFF",
 };
-
-const SERVICES = [
-  { label: "Ready Mix Concrete", to: "/products#ready-mix-concrete" },
-  { label: "M-Sand", to: "/products#m-sand" },
-  { label: "Plaster Sand", to: "/products#plaster-sand" },
-  { label: "Aggregates & Grit", to: "/products#aggregates-grit" },
-];
 
 const QUICK_LINKS = [
   { label: "Home", to: "/" },
-  { label: "About Us", to: "/about" },
+  { label: "About", to: "/about" },
+  { label: "Products", to: "/products" },
   { label: "Projects", to: "/projects" },
-  { label: "Contact Us", to: "/contact" },
+  { label: "Contact", to: "/contact" },
 ];
 
+const InstagramIcon = (props) => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <defs>
+      <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#FED576" />
+        <stop offset="26%" stopColor="#F47133" />
+        <stop offset="61%" stopColor="#BC3081" />
+        <stop offset="100%" stopColor="#4C63D2" />
+      </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#igGrad)" />
+    <rect x="6.5" y="6.5" width="11" height="11" rx="3.5" fill="none" stroke="#fff" strokeWidth="1.6" />
+    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" strokeWidth="1.6" />
+    <circle cx="17.1" cy="6.9" r="1.1" fill="#fff" />
+  </svg>
+);
+const FacebookIcon = (props) => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="6" fill="#1877F2" />
+    <path
+      fill="#fff"
+      d="M15.1 22v-7.8h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.5-1.46h1.6V5.14c-.28-.04-1.23-.12-2.34-.12-2.32 0-3.9 1.42-3.9 4V11.2H9.3v3h2.66V22h3.14z"
+    />
+  </svg>
+);
+
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-  };
-
   return (
-    <footer style={{ background: colors.ink, position: "relative", overflow: "hidden" }}>
+    <footer style={{ position: "relative" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
         .brand-font { font-family: 'Poppins', sans-serif; }
         .body-font { font-family: 'Inter', sans-serif; }
-        .footer-link { transition: color 0.15s ease, padding-left 0.15s ease; }
-        .footer-link:hover { color: #FFFFFF; padding-left: 4px; }
-        .social-icon { transition: background 0.15s ease, transform 0.15s ease; }
-        .social-icon:hover { background: ${colors.orangeDark}; transform: translateY(-3px); }
-        .newsletter-input { transition: border-color 0.15s ease; }
-        .newsletter-input:focus { outline: none; border-color: ${colors.orange}; }
-        .subscribe-btn { transition: background 0.2s ease; }
-        .subscribe-btn:hover { background: ${colors.orangeDark}; }
-        .brochure-btn { transition: background 0.2s ease, transform 0.15s ease; }
-        .brochure-btn:hover { background: ${colors.orangeDark}; transform: translateY(-2px); }
 
-        /* --- Premium truck animation --- */
+        /* Quick link hover — underline slides in + text brightens */
+        .footer-link {
+          position: relative;
+          color: ${colors.concreteMid};
+          transition: color 0.2s ease;
+        }
+        .footer-link::after {
+          content: "";
+          position: absolute;
+          left: 0; bottom: -2px;
+          width: 0;
+          height: 1.5px;
+          background: ${colors.orange};
+          transition: width 0.25s ease;
+        }
+        .footer-link:hover { color: #FFFFFF; }
+        .footer-link:hover::after { width: 100%; }
+
+        .social-icon { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .social-icon:hover { transform: translateY(-3px) scale(1.06); }
+
+        /* --- Truck driving across the strip --- */
+        .truck-strip {
+          position: relative;
+          height: 150px;
+          overflow: hidden;
+          background: linear-gradient(180deg, ${colors.concrete} 0%, ${colors.concreteMid} 100%);
+          border-bottom: 4px solid ${colors.orange};
+        }
+        .skyline { position: absolute; left: 0; right: 0; bottom: 4px; opacity: 0.22; }
+        .road-line {
+          position: absolute; left: 0; right: 0; bottom: 4px; height: 2px;
+          background: repeating-linear-gradient(90deg, ${colors.steel} 0 24px, transparent 24px 44px);
+          opacity: 0.35;
+        }
+        .truck-drive {
+          position: absolute;
+          bottom: 4px;
+          width: 200px;
+          height: 112px;
+          animation: driveAcross 11s linear infinite;
+        }
+        @keyframes driveAcross {
+          0%   { transform: translateX(calc(100vw + 30px)); }
+          100% { transform: translateX(-220px); }
+        }
+        @keyframes wheelSpin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
         @keyframes stripeScroll {
           from { transform: translateX(0); }
           to   { transform: translateX(-192px); }
         }
-        @keyframes wheelRotate {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
+        @keyframes speedLine {
+          0%   { opacity: 0; transform: scaleX(0.4); }
+          40%  { opacity: 0.5; }
+          100% { opacity: 0; transform: scaleX(1); }
         }
-        @keyframes engineIdle {
-          0%, 100% { transform: translateY(0); }
-          50%      { transform: translateY(-1.5px); }
-        }
-        @keyframes exhaustPuff {
-          0%   { opacity: 0; transform: translateY(0) scale(0.6); }
-          30%  { opacity: 0.5; }
-          100% { opacity: 0; transform: translateY(-14px) scale(1.3); }
-        }
-        .truck-idle {
-          animation: engineIdle 2.2s ease-in-out infinite;
-        }
-        .drum-stripes {
-          animation: stripeScroll 1.3s linear infinite;
-        }
-        .truck-wheel {
-          transform-origin: center;
-          transform-box: fill-box;
-          animation: wheelRotate 1s linear infinite;
-        }
-        .exhaust-puff {
-          animation: exhaustPuff 2.2s ease-out infinite;
-          transform-box: fill-box;
-        }
-        .exhaust-puff.delay {
-          animation-delay: 1.1s;
-        }
+        .truck-wheel { transform-origin: center; transform-box: fill-box; animation: wheelSpin 0.5s linear infinite; }
+        .drum-stripes { animation: stripeScroll 0.9s linear infinite; }
+        .speed-lines rect { animation: speedLine 0.6s ease-out infinite; }
+        .speed-lines rect:nth-child(2) { animation-delay: 0.1s; }
+        .speed-lines rect:nth-child(3) { animation-delay: 0.2s; }
         @media (prefers-reduced-motion: reduce) {
-          .truck-idle, .drum-stripes, .truck-wheel, .exhaust-puff { animation: none; }
+          .truck-drive, .truck-wheel, .drum-stripes, .speed-lines rect { animation: none; }
         }
       `}</style>
 
-      {/* Premium architectural background texture */}
-      <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.05 }} preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <pattern id="facade" width="70" height="70" patternUnits="userSpaceOnUse" patternTransform="skewX(-8)">
-            <rect width="70" height="70" fill="none" stroke="#FFFFFF" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#facade)" />
-      </svg>
-      <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${colors.ink} 0%, rgba(26,24,21,0.97) 100%)` }} />
+      {/* ===== Truck driving strip ===== */}
+      <div className="truck-strip">
+        <svg className="skyline" viewBox="0 0 900 120" preserveAspectRatio="none" width="100%" height="120" aria-hidden="true">
+          <rect x="520" y="30" width="40" height="90" fill={colors.charcoalSoft} />
+          <rect x="570" y="50" width="30" height="70" fill={colors.charcoalSoft} />
+          <rect x="610" y="15" width="45" height="105" fill={colors.charcoalSoft} />
+          <rect x="665" y="60" width="28" height="60" fill={colors.charcoalSoft} />
+          <rect x="700" y="35" width="36" height="85" fill={colors.charcoalSoft} />
+          <rect x="745" y="55" width="26" height="65" fill={colors.charcoalSoft} />
+          <rect x="780" y="20" width="42" height="100" fill={colors.charcoalSoft} />
+          <line x1="640" y1="10" x2="640" y2="60" stroke={colors.charcoalSoft} strokeWidth="3" />
+          <line x1="600" y1="12" x2="690" y2="12" stroke={colors.charcoalSoft} strokeWidth="3" />
+          <line x1="640" y1="12" x2="640" y2="30" stroke={colors.charcoalSoft} strokeWidth="2" />
+        </svg>
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-8 pt-20 pb-16">
-        <div className="grid lg:grid-cols-[1.15fr_1fr_1.1fr_1.1fr] gap-12">
+        <div className="road-line" />
 
-          {/* Truck illustration + tagline + brochure */}
-          <div>
-            <div className="truck-idle">
-              <svg width="240" height="130" viewBox="0 0 240 130" fill="none" aria-hidden="true">
-                <defs>
-                  <clipPath id="drumClip">
-                    <ellipse cx="140" cy="58" rx="63" ry="30" />
-                  </clipPath>
-                </defs>
+        <div className="truck-drive" aria-hidden="true">
+          <svg width="200" height="112" viewBox="0 0 240 130" fill="none">
+            <defs>
+              <clipPath id="drumClip2"><ellipse cx="140" cy="58" rx="63" ry="30" /></clipPath>
+            </defs>
 
-                {/* exhaust puffs */}
-                <circle className="exhaust-puff" cx="16" cy="48" r="4" fill={colors.concreteMid} />
-                <circle className="exhaust-puff delay" cx="16" cy="48" r="4" fill={colors.concreteMid} />
+            <g className="speed-lines">
+              <rect x="-8" y="70" width="18" height="3" rx="1.5" fill={colors.steel} />
+              <rect x="-16" y="80" width="14" height="3" rx="1.5" fill={colors.steel} />
+              <rect x="-4" y="90" width="20" height="3" rx="1.5" fill={colors.steel} />
+            </g>
 
-                {/* cab — bold flat style with thick outline */}
-                <path
-                  d="M12 58 L12 92 L54 92 L54 42 L40 42 L28 58 Z"
-                  fill={colors.orange}
-                  stroke={colors.ink}
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                />
-                <rect x="19" y="49" width="16" height="14" rx="2" fill="#BFE4F5" stroke={colors.ink} strokeWidth="2.5" />
-                <line x1="54" y1="60" x2="54" y2="92" stroke={colors.ink} strokeWidth="2" opacity="0.4" />
-                <circle cx="16" cy="84" r="3" fill={colors.yellow} stroke={colors.ink} strokeWidth="1.5" />
+            <path d="M12 58 L12 92 L54 92 L54 42 L40 42 L28 58 Z" fill="#FFFFFF" stroke={colors.ink} strokeWidth="3" strokeLinejoin="round" />
+            <rect x="19" y="49" width="16" height="14" rx="2" fill="#BFE4F5" stroke={colors.ink} strokeWidth="2.5" />
+            <rect x="54" y="76" width="16" height="16" fill={colors.concreteMid} stroke={colors.ink} strokeWidth="2" />
+            <rect x="66" y="60" width="140" height="10" rx="2" fill={colors.steel} stroke={colors.ink} strokeWidth="2" />
 
-                {/* chassis connector */}
-                <rect x="54" y="76" width="16" height="16" fill={colors.charcoalSoft} stroke={colors.ink} strokeWidth="2" />
+            <ellipse cx="140" cy="58" rx="63" ry="30" fill="#FFFFFF" stroke={colors.ink} strokeWidth="3" />
+            <g style={{ clipPath: "url(#drumClip2)" }}>
+              <rect x="77" y="26" width="126" height="64" fill={colors.orange} />
+              <g className="drum-stripes">
+                {[-1,0,1,2,3,4,5,6,7,8,9,10].map((i) => (
+                  <rect key={i} x={i * 24 + 60} y="20" width="14" height="80" fill={i % 2 === 0 ? "#FFFFFF" : colors.orangeDark} />
+                ))}
+              </g>
+            </g>
+            <ellipse cx="140" cy="58" rx="63" ry="30" fill="none" stroke={colors.ink} strokeWidth="3" />
 
-                {/* mixer support frame */}
-                <rect x="66" y="60" width="140" height="10" rx="2" fill={colors.steel} stroke={colors.ink} strokeWidth="2" />
+            <circle cx="140" cy="58" r="17" fill="#FFFFFF" stroke={colors.ink} strokeWidth="3" />
+            <text x="140" y="55" textAnchor="middle" fontSize="9" fontWeight="800" fill={colors.ink} fontFamily="Poppins, sans-serif">SB</text>
+            <text x="140" y="65" textAnchor="middle" fontSize="4.5" fontWeight="700" fill={colors.orange} fontFamily="Poppins, sans-serif" letterSpacing="0.3">READYMIX</text>
 
-                {/* mixer barrel — outline stays FIXED (a real drum's silhouette
-                    doesn't change as it spins); only the surface stripes inside
-                    it move, which is what actually reads as "rotating" */}
-                <ellipse cx="140" cy="58" rx="63" ry="30" fill="#FFFFFF" stroke={colors.ink} strokeWidth="3" />
+            <path d="M200 72 L218 90 L207 98 L190 80 Z" fill={colors.steel} stroke={colors.ink} strokeWidth="2.5" strokeLinejoin="round" />
+            <rect x="54" y="90" width="166" height="12" rx="2" fill={colors.concreteMid} stroke={colors.ink} strokeWidth="2.5" />
 
-                <g style={{ clipPath: "url(#drumClip)" }}>
-                  <rect x="77" y="26" width="126" height="64" fill={colors.orange} />
-                  <g className="drum-stripes">
-                    {[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                      <rect
-                        key={i}
-                        x={i * 24 + 60}
-                        y="20"
-                        width="14"
-                        height="80"
-                        fill={i % 2 === 0 ? "#FFFFFF" : colors.orangeDark}
-                      />
-                    ))}
-                  </g>
-                  {/* moving specular highlight — sells the "cylinder is turning" illusion */}
-                  <g className="drum-stripes">
-                    {[0, 1, 2].map((i) => (
-                      <rect
-                        key={`shine-${i}`}
-                        x={i * 96 + 60}
-                        y="20"
-                        width="20"
-                        height="80"
-                        fill="#FFFFFF"
-                        opacity="0.3"
-                      />
-                    ))}
-                  </g>
-                  {/* soft top-to-bottom shading so it reads as a rounded cylinder, not a flat disc */}
-                  <ellipse cx="140" cy="46" rx="60" ry="14" fill="#FFFFFF" opacity="0.18" />
-                  <ellipse cx="140" cy="74" rx="60" ry="12" fill={colors.ink} opacity="0.12" />
-                </g>
-                {/* redraw the crisp outline on top so the clipped stripes never bleed past it */}
-                <ellipse cx="140" cy="58" rx="63" ry="30" fill="none" stroke={colors.ink} strokeWidth="3" />
-
-                {/* brand badge — stays upright and readable, doesn't spin */}
-                <circle cx="140" cy="58" r="16" fill="#FFFFFF" stroke={colors.ink} strokeWidth="3" />
-                <circle cx="140" cy="58" r="16" fill="none" stroke={colors.orange} strokeWidth="2" />
-                <text x="140" y="63" textAnchor="middle" fontSize="11" fontWeight="700" fill={colors.orange} fontFamily="Poppins, sans-serif">SB</text>
-
-                {/* rear discharge chute */}
-                <path d="M200 72 L218 90 L207 98 L190 80 Z" fill={colors.steel} stroke={colors.ink} strokeWidth="2.5" strokeLinejoin="round" />
-
-                {/* base platform / bumper */}
-                <rect x="54" y="90" width="166" height="12" rx="2" fill={colors.charcoalSoft} stroke={colors.ink} strokeWidth="2.5" />
-
-                {/* wheels — spokes make the spin actually visible */}
-                <g className="truck-wheel">
-                  <circle cx="38" cy="106" r="17" fill={colors.ink} />
-                  <line x1="38" y1="93" x2="38" y2="119" stroke={colors.steel} strokeWidth="2" />
-                  <line x1="25" y1="106" x2="51" y2="106" stroke={colors.steel} strokeWidth="2" />
-                  <circle cx="38" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
-                </g>
-                <g className="truck-wheel">
-                  <circle cx="104" cy="106" r="17" fill={colors.ink} />
-                  <line x1="104" y1="93" x2="104" y2="119" stroke={colors.steel} strokeWidth="2" />
-                  <line x1="91" y1="106" x2="117" y2="106" stroke={colors.steel} strokeWidth="2" />
-                  <circle cx="104" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
-                </g>
-                <g className="truck-wheel">
-                  <circle cx="192" cy="106" r="17" fill={colors.ink} />
-                  <line x1="192" y1="93" x2="192" y2="119" stroke={colors.steel} strokeWidth="2" />
-                  <line x1="179" y1="106" x2="205" y2="106" stroke={colors.steel} strokeWidth="2" />
-                  <circle cx="192" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
-                </g>
-              </svg>
-            </div>
-
-            <p className="body-font text-[15px] mt-4 leading-relaxed" style={{ color: colors.concreteMid }}>
-              One of Rajasthan's leading ready mix concrete manufacturer.
-            </p>
-
-            <a
-              href="#"
-              className="brochure-btn inline-flex items-center gap-2 brand-font text-sm font-medium text-white px-6 py-3.5 mt-6"
-              style={{ background: colors.orange }}
-            >
-              <Download size={15} strokeWidth={2.5} />
-              Shree Balaji Brochure
-            </a>
-          </div>
-
-          {/* Services */}
-          <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">Services</div>
-            <div className="flex flex-col gap-4">
-              {SERVICES.map((l) => (
-                <Link key={l.label} to={l.to} className="footer-link flex items-center gap-1.5 body-font text-sm" style={{ color: colors.concreteMid }}>
-                  <ChevronRight size={13} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">Quick Links</div>
-            <div className="flex flex-col gap-4">
-              {QUICK_LINKS.map((l, i) => (
-                <Link
-                  key={l.label}
-                  to={l.to}
-                  className="footer-link flex items-center gap-1.5 body-font text-sm"
-                  style={{ color: i === 0 ? "#FFFFFF" : colors.concreteMid, fontWeight: i === 0 ? 600 : 400 }}
-                >
-                  <ChevronRight size={13} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <div className="brand-font text-2xl font-semibold text-white mb-7">Contact</div>
-            <div className="flex flex-col gap-5">
-              <div className="flex items-start gap-2.5 body-font text-sm leading-relaxed" style={{ color: colors.concreteMid }}>
-                <MapPin size={17} strokeWidth={2} style={{ marginTop: 2, flexShrink: 0, color: colors.orange }} />
-                <span>Shree Balaji Ready Mix, Sitapura Industrial Area, Jaipur, Rajasthan – 302022</span>
-              </div>
-              <a
-                href="tel:+919829000000"
-                className="footer-link flex items-center gap-2.5 body-font text-base font-semibold"
-                style={{ color: "#FFFFFF" }}
-              >
-                <Phone size={18} strokeWidth={2.5} style={{ color: colors.orange, flexShrink: 0 }} />
-                +91 98290 00000
-              </a>
-              <div>
-                <div className="brand-font text-sm font-semibold" style={{ color: colors.orange }}>
-                  Open Hours:
-                </div>
-                <div className="body-font text-sm mt-1.5 leading-relaxed" style={{ color: colors.concreteMid }}>
-                  Mon – Sat: 8 am – 7 pm,<br />
-                  Sunday: CLOSED
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Newsletter + Social — its own full-width row, clearly separated */}
-        <div
-          className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mt-14 pt-10"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
-        >
-          <div>
-            <div className="brand-font text-lg font-semibold text-white mb-1">Stay in the loop</div>
-            <p className="body-font text-sm" style={{ color: colors.concreteMid }}>
-              Subscribe for updates on new plants, capacity, and pricing.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            {subscribed ? (
-              <div className="body-font text-sm font-medium" style={{ color: colors.yellow }}>
-                Thanks — you're subscribed!
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-0 w-full sm:w-auto">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your mail address"
-                  className="newsletter-input body-font text-sm px-4 py-3.5 border min-w-0 flex-1 sm:flex-initial sm:w-[220px]"
-                  style={{ background: colors.charcoalSoft, borderColor: "transparent", color: "#FFFFFF" }}
-                />
-                <button
-                  type="submit"
-                  className="subscribe-btn flex items-center justify-center w-12 shrink-0"
-                  style={{ background: colors.orange }}
-                  aria-label="Subscribe"
-                >
-                  <Send size={16} strokeWidth={2.5} className="text-white" />
-                </button>
-              </form>
-            )}
-
-            <div className="flex items-center gap-3">
-              {["Facebook", "Instagram", "LinkedIn", "YouTube"].map((label) => (
-                <a
-                  key={label}
-                  href="#"
-                  className="social-icon flex items-center justify-center w-12 h-12"
-                  style={{ background: colors.orange }}
-                  aria-label={label}
-                  title={label}
-                >
-                  <Globe size={19} strokeWidth={2} className="text-white" />
-                </a>
-              ))}
-            </div>
-          </div>
+            <g className="truck-wheel">
+              <circle cx="38" cy="106" r="17" fill={colors.ink} />
+              <line x1="38" y1="93" x2="38" y2="119" stroke={colors.steel} strokeWidth="2" />
+              <line x1="25" y1="106" x2="51" y2="106" stroke={colors.steel} strokeWidth="2" />
+              <circle cx="38" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
+            </g>
+            <g className="truck-wheel">
+              <circle cx="104" cy="106" r="17" fill={colors.ink} />
+              <line x1="104" y1="93" x2="104" y2="119" stroke={colors.steel} strokeWidth="2" />
+              <line x1="91" y1="106" x2="117" y2="106" stroke={colors.steel} strokeWidth="2" />
+              <circle cx="104" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
+            </g>
+            <g className="truck-wheel">
+              <circle cx="192" cy="106" r="17" fill={colors.ink} />
+              <line x1="192" y1="93" x2="192" y2="119" stroke={colors.steel} strokeWidth="2" />
+              <line x1="179" y1="106" x2="205" y2="106" stroke={colors.steel} strokeWidth="2" />
+              <circle cx="192" cy="106" r="7" fill="#FFFFFF" stroke={colors.ink} strokeWidth="2" />
+            </g>
+          </svg>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div style={{ background: colors.charcoal, borderTop: "1px solid rgba(255,255,255,0.06)" }} className="relative py-6">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-center">
-          <span className="body-font text-sm text-center" style={{ color: colors.concreteMid }}>
-            {new Date().getFullYear()} © All rights reserved by{" "}
-            <span style={{ color: colors.orange, fontWeight: 500 }}>Shree Balaji Ready Mix</span>
+      {/* ===== Main dark footer — same ink tone as Hero / TrustSection stat cards ===== */}
+      <div style={{ background: colors.ink }} className="pt-10 pb-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+            {/* Logo + tagline */}
+            <div>
+              <div className="flex items-center gap-2.5">
+                <div
+                  className="brand-font flex items-center justify-center w-10 h-10 rounded-md font-extrabold text-sm"
+                  style={{ background: colors.orange, color: "#FFFFFF" }}
+                >
+                  SB
+                </div>
+                <div className="brand-font leading-tight">
+                  <div className="text-white font-bold text-base tracking-wide">SHREE BALAJI</div>
+                  <div className="font-bold text-xs tracking-wide" style={{ color: colors.orange }}>READYMIX</div>
+                </div>
+              </div>
+              <p className="body-font text-sm mt-3.5" style={{ color: colors.concreteMid }}>
+                Quality Concrete. Reliable Service.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <div className="brand-font text-white text-xs font-bold tracking-widest mb-2">QUICK LINKS</div>
+              <div className="w-8 h-0.5 mb-3.5" style={{ background: colors.orange }} />
+              <div className="flex flex-wrap gap-x-1 gap-y-2 body-font text-sm">
+                {QUICK_LINKS.map((l, i) => (
+                  <React.Fragment key={l.label}>
+                    <Link to={l.to} className="footer-link px-0.5">
+                      {l.label}
+                    </Link>
+                    {i < QUICK_LINKS.length - 1 && <span style={{ color: colors.charcoalSoft }}>|</span>}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Us */}
+            <div>
+              <div className="brand-font text-white text-xs font-bold tracking-widest mb-2">CONTACT US</div>
+              <div className="w-8 h-0.5 mb-3.5" style={{ background: colors.orange }} />
+              <div className="flex flex-col gap-2.5 body-font text-sm" style={{ color: colors.concreteMid }}>
+                <div className="flex items-start gap-2.5">
+                  <MapPin size={16} style={{ color: colors.orange, marginTop: 2, flexShrink: 0 }} />
+                  <span>Sitapura Industrial Area, Jaipur, Rajasthan</span>
+                </div>
+                <a href="tel:+919829000000" className="footer-link flex items-center gap-2.5" style={{ width: "fit-content" }}>
+                  <Phone size={16} style={{ color: colors.orange, flexShrink: 0 }} />
+                  +91 98290 00000
+                </a>
+                <a href="mailto:info@shreebalajireadymix.com" className="footer-link flex items-center gap-2.5" style={{ width: "fit-content" }}>
+                  <Mail size={16} style={{ color: colors.orange, flexShrink: 0 }} />
+                  info@shreebalajireadymix.com
+                </a>
+              </div>
+            </div>
+
+            {/* Follow Us */}
+            <div>
+              <div className="brand-font text-white text-xs font-bold tracking-widest mb-2">FOLLOW US</div>
+              <div className="w-8 h-0.5 mb-3.5" style={{ background: colors.orange }} />
+              <div className="flex items-center gap-3">
+                <a href="#" className="social-icon" aria-label="Instagram">
+                  <InstagramIcon width={32} height={32} />
+                </a>
+                <a href="#" className="social-icon" aria-label="Facebook">
+                  <FacebookIcon width={32} height={32} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="max-w-7xl mx-auto px-6 md:px-8 mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2"
+          style={{ borderTop: `1px solid ${colors.charcoalSoft}` }}
+        >
+          <span className="body-font text-xs" style={{ color: colors.concreteMid }}>
+            © {new Date().getFullYear()} Shree Balaji Readymix. All Rights Reserved.
           </span>
+          <div className="flex items-center gap-3 body-font text-xs" style={{ color: colors.concreteMid }}>
+            <Link to="/privacy-policy" className="footer-link">Privacy Policy</Link>
+            <span style={{ color: colors.charcoalSoft }}>|</span>
+            <Link to="/terms" className="footer-link">Terms & Conditions</Link>
+          </div>
         </div>
       </div>
     </footer>

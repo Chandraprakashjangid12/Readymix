@@ -164,7 +164,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className="form-input w-full px-4 py-3 text-sm border"
                   style={{ borderColor: errors.name ? "#D9531E" : colors.concreteMid, color: colors.ink }}
-                  placeholder="Ramesh Sharma"
+                  placeholder="Name"
                 />
                 {errors.name && (
                   <div className="body-font text-xs mt-1.5" style={{ color: colors.orange }}>
@@ -183,7 +183,7 @@ export default function Contact() {
                   onChange={handleChange}
                   className="form-input w-full px-4 py-3 text-sm border"
                   style={{ borderColor: errors.phone ? "#D9531E" : colors.concreteMid, color: colors.ink }}
-                  placeholder="+91 98290 00000"
+                  placeholder="+91 xxxxx xxxxx"
                 />
                 {errors.phone && (
                   <div className="body-font text-xs mt-1.5" style={{ color: colors.orange }}>

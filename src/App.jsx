@@ -10,6 +10,8 @@ import AboutPage from "./Components/pages/AboutPage";
 import ProductsPage from "./Components/pages/ProductsPage";
 import ProjectsPage from "./Components/pages/ProjectsPage";
 import ContactPage from "./Components/pages/ContactPage";
+// import Scrolling from "./Components/scrolling";
+import ScrollToTop from "./Components/scrolling";
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
       </Routes>
       {/* <TruckBanner /> */}
       <Footer />
+      <ScrollToTop />
       <WhatsAppButton />
       <CallButton />
     </BrowserRouter>

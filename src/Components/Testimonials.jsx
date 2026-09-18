@@ -1,103 +1,189 @@
-import React, { useState } from "react";
-import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
 const colors = {
   charcoal: "#221F1C",
   charcoalSoft: "#33302B",
   concrete: "#EDEAE2",
-  concreteMid: "#D8D2C4",
+  cardBg: "#FCEAD2",
   steel: "#6B6459",
   orange: "#D9531E",
   yellow: "#F2B705",
   ink: "#1A1815",
 };
 
-// Replace with real client feedback once you have it
+// Replace quote/name/role/avatar with real client data once you have it.
+// avatar can be a real photo URL, or leave as-is to auto-generate an initials avatar.
 const TESTIMONIALS = [
   {
-    quote: "Shree Balaji has been supplying our site for two years now — consistent quality, and the trucks are never late.",
+    quote:
+      "Shree Balaji has been supplying our site for two years now — consistent quality, and the trucks are never late.",
     name: "Rajesh Agarwal",
-    role: "Site Manager, Vaishali Nagar Residency",
+    role: "Site Manager, Vaishali Nagar",
+    avatar: "https://ui-avatars.com/api/?name=Rajesh+Agarwal&background=D9531E&color=fff&size=128",
   },
   {
-    quote: "We switched to them after a bad experience with another supplier. Mix design has been spot-on every single pour.",
+    quote:
+      "We switched to them after a bad experience with another supplier. Mix design is spot-on every single pour.",
     name: "Priya Sharma",
-    role: "Project Engineer, Ajmer Road Retail Plaza",
+    role: "Project Engineer, Ajmer Road",
+    avatar: "https://ui-avatars.com/api/?name=Priya+Sharma&background=33302B&color=fff&size=128",
   },
   {
-    quote: "Reliable, professional, and they actually pick up the phone. That matters more than people think.",
+    quote:
+      "Reliable, professional, and they actually pick up the phone. That matters more than people think.",
     name: "Vikram Singh",
-    role: "Contractor, Kotputli Bridge Widening",
+    role: "Contractor, Kotputli",
+    avatar: "https://ui-avatars.com/api/?name=Vikram+Singh&background=6B6459&color=fff&size=128",
+  },
+  {
+    quote:
+      "Timely delivery every time, even during peak season. Their quality control team is genuinely thorough.",
+    name: "Anita Desai",
+    role: "Civil Engineer, Mansarovar",
+    avatar: "https://ui-avatars.com/api/?name=Anita+Desai&background=D9531E&color=fff&size=128",
+  },
+  {
+    quote:
+      "Best ready-mix supplier we've worked with in Jaipur. Fair pricing and zero delays on any project.",
+    name: "Manoj Khandelwal",
+    role: "Builder, Sitapura",
+    avatar: "https://ui-avatars.com/api/?name=Manoj+K&background=33302B&color=fff&size=128",
+  },
+  {
+    quote:
+      "Good rates, honest billing, and the concrete quality has held up on every slab we've poured.",
+    name: "Suresh Meena",
+    role: "Site Supervisor, Malviya Nagar",
+    avatar: "https://ui-avatars.com/api/?name=Suresh+Meena&background=D9531E&color=fff&size=128",
   },
 ];
 
+const AUTOPLAY_DELAY = 3500;
+
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
+  const [cardsToShow, setCardsToShow] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const next = () => setIndex((i) => (i + 1) % TESTIMONIALS.length);
-  const prev = () => setIndex((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  useEffect(() => {
+    const updateCards = () => {
+      if (window.innerWidth < 768) setCardsToShow(1);
+      else if (window.innerWidth < 1024) setCardsToShow(2);
+      else setCardsToShow(3);
+    };
+    updateCards();
+    window.addEventListener("resize", updateCards);
+    return () => window.removeEventListener("resize", updateCards);
+  }, []);
 
-  const active = TESTIMONIALS[index];
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % TESTIMONIALS.length);
+    }, AUTOPLAY_DELAY);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const visible = Array.from({ length: cardsToShow }, (_, offset) => {
+    const i = (index + offset) % TESTIMONIALS.length;
+    return { ...TESTIMONIALS[i], key: i };
+  });
 
   return (
-    <section style={{ background: colors.concrete }} className="py-20 md:py-28">
+    <section
+      style={{ background: "#FFFFFF" }}
+      className="py-10 md:py-14"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
         .brand-font { font-family: 'Poppins', sans-serif; }
         .body-font { font-family: 'Inter', sans-serif; }
-        .arrow-btn { transition: background 0.15s ease; }
-        .arrow-btn:hover { background: ${colors.orange}; }
-        .arrow-btn:hover svg { color: #FFFFFF !important; }
-        .dot { transition: background 0.15s ease; cursor: pointer; }
+        .t-card { transition: transform 0.2s ease; animation: fadeIn 0.4s ease; }
+        .t-card:hover { transform: translateY(-3px); }
+        .dot { transition: background 0.15s ease, transform 0.10s ease; cursor: pointer; }
+        .dot:hover { transform: scale(1.1); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
       `}</style>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
+      <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <h2
+          className="brand-font font-extrabold text-center mb-7"
+          style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", color: colors.ink }}
+        >
+          Client Testimonials
+        </h2>
+
         <div
-          className="inline-flex items-center gap-2 px-3 py-1.5 mb-8"
-          style={{ background: "rgba(217,83,30,0.08)", border: `1px solid ${colors.orange}` }}
+          className={`grid gap-5 ${
+            cardsToShow === 1
+              ? "grid-cols-1"
+              : cardsToShow === 2
+              ? "grid-cols-2"
+              : "grid-cols-3"
+          }`}
         >
-          <span className="body-font text-xs font-medium tracking-wide" style={{ color: "#B8451A" }}>
-            CLIENT TESTIMONIALS
-          </span>
-        </div>
-
-        <Quote size={40} strokeWidth={1.5} style={{ color: colors.orange, margin: "0 auto 24px" }} />
-
-        <p
-          className="brand-font font-medium leading-snug"
-          style={{ fontSize: "clamp(1.25rem, 3vw, 1.75rem)", color: colors.ink }}
-        >
-          "{active.quote}"
-        </p>
-
-        <div className="mt-6">
-          <div className="brand-font text-base font-semibold" style={{ color: colors.ink }}>
-            {active.name}
-          </div>
-          <div className="body-font text-sm mt-0.5" style={{ color: colors.steel }}>
-            {active.role}
-          </div>
-        </div>
-
-        <div className="flex items-center justify-center gap-4 mt-10">
-          <button onClick={prev} className="arrow-btn flex items-center justify-center w-11 h-11 border" style={{ borderColor: colors.concreteMid }} aria-label="Previous testimonial">
-            <ChevronLeft size={18} strokeWidth={2} style={{ color: colors.ink }} />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {TESTIMONIALS.map((_, i) => (
-              <div
-                key={i}
-                onClick={() => setIndex(i)}
-                className="dot w-2 h-2 rounded-full"
-                style={{ background: i === index ? colors.orange : colors.concreteMid }}
+          {visible.map((t) => (
+            <div key={t.key} className="t-card relative pt-7">
+              {/* avatar overlaps the top of the card */}
+              <img
+                src={t.avatar}
+                alt={t.name}
+                className="absolute left-1/2 -translate-x-1/2 top-0 w-14 h-14 rounded-full border-4 z-10 object-cover"
+                style={{ borderColor: "#FFFFFF", boxShadow: "0 3px 8px rgba(0,0,0,0.12)" }}
               />
-            ))}
-          </div>
 
-          <button onClick={next} className="arrow-btn flex items-center justify-center w-11 h-11 border" style={{ borderColor: colors.concreteMid }} aria-label="Next testimonial">
-            <ChevronRight size={18} strokeWidth={2} style={{ color: colors.ink }} />
-          </button>
+              <div
+                className="rounded-xl pt-9 pb-5 px-5 text-center relative"
+                style={{ background: colors.cardBg }}
+              >
+                <span
+                  className="brand-font absolute top-2 left-4 select-none"
+                  style={{ fontSize: "1.75rem", color: "rgba(217,83,30,0.25)", lineHeight: 1 }}
+                >
+                  &ldquo;
+                </span>
+
+                <p
+                  className="body-font text-xs leading-relaxed"
+                  style={{ color: colors.charcoalSoft }}
+                >
+                  {t.quote}
+                </p>
+
+                <div className="mt-3">
+                  <div
+                    className="brand-font text-xs font-bold uppercase tracking-wide"
+                    style={{ color: colors.ink }}
+                  >
+                    {t.name}
+                  </div>
+                  <div className="body-font text-[11px] mt-0.5" style={{ color: colors.steel }}>
+                    {t.role}
+                  </div>
+                </div>
+
+                <span
+                  className="brand-font absolute bottom-0.5 right-4 select-none"
+                  style={{ fontSize: "1.75rem", color: colors.orange, lineHeight: 1 }}
+                >
+                  &rdquo;
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-6">
+          {TESTIMONIALS.map((_, i) => (
+            <div
+              key={i}
+              onClick={() => setIndex(i)}
+              className="dot w-2 h-2 rounded-full"
+              style={{ background: i === index ? colors.orange : colors.concrete }}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -14,7 +14,7 @@ export default function CallButton() {
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       aria-label="Call us now"
     >
-      <Phone size={26} strokeWidth={2} className="text-white" />
+      <Phone size={25} strokeWidth={2} className="text-white" />
     </a>
   );
 }

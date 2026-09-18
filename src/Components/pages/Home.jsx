@@ -1,9 +1,10 @@
 import React from "react";
 import { ArrowRight, ShieldCheck, Clock, Users, Award } from "lucide-react";
 import Hero from "../Hero";
-import TrustSection from "../TrustSection";      // ← naya
-import BranchesSection from "../BranchesSection"; // ← naya
 import Testimonials from "../Testimonials";
+// import TrustSection from "../TrustSection";      // ← naya
+
+// import Testimonials from "../Testimonials";
 
 const colors = {
   charcoal: "#221F1C",
@@ -27,10 +28,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-            <TrustSection />
-             <Testimonials />
-      <BranchesSection />
-
+        {/* <Testimonials /> */}
+            {/* <TrustSection /> */}
+             {/* <Testimonials /> */}
+      
+    
 
       {/* Pillars of strength */}
       <section style={{ background: colors.ink }} className="py-10">
@@ -61,7 +63,7 @@ export default function Home() {
       <Testimonials />
 
       {/* CTA banner */}
-      <section style={{ background: colors.orange }} className="py-14">
+      {/* <section style={{ background: colors.orange }} className="py-14">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-2xl md:text-3xl font-semibold text-white mb-5" style={{ fontFamily: "'Poppins', sans-serif" }}>
             Ready to schedule your pour?
@@ -75,7 +77,7 @@ export default function Home() {
             <ArrowRight size={16} strokeWidth={2.5} />
           </a>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
