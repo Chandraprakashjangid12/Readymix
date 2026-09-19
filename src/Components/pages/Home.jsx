@@ -2,9 +2,8 @@ import React from "react";
 import { ArrowRight, ShieldCheck, Clock, Users, Award } from "lucide-react";
 import Hero from "../Hero";
 import Testimonials from "../Testimonials";
-// import TrustSection from "../TrustSection";      // ← naya
-
-// import Testimonials from "../Testimonials";
+import ConcreteCalculator from "../ConcreteCalculator";
+// import TrustSection from "../TrustSection";      // abhi off — chaho to bata dena, on kar dunga
 
 const colors = {
   charcoal: "#221F1C",
@@ -28,13 +27,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-        {/* <Testimonials /> */}
-            {/* <TrustSection /> */}
-             {/* <Testimonials /> */}
-      
-    
 
-      {/* Pillars of strength */}
+      {/* Pillars of strength — right below Hero */}
       <section style={{ background: colors.ink }} className="py-10">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -60,7 +54,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials — right after Pillars */}
       <Testimonials />
+
+      {/* Concrete Quantity Calculator — right after Testimonials */}
+      <ConcreteCalculator />
 
       {/* CTA banner */}
       {/* <section style={{ background: colors.orange }} className="py-14">

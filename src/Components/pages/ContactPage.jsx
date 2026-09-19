@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
+import emailjs from "@emailjs/browser";
+
+// ⚠️ Replace these 3 with your own EmailJS values (from emailjs.com dashboard)
+const EMAILJS_SERVICE_ID = "service_3mopzhf";
+const EMAILJS_TEMPLATE_ID = "template_yxv9dp6";
+const EMAILJS_PUBLIC_KEY = "4FCLF9WD3_Y8n14wd";
 
 const colors = {
   charcoal: "#221F1C",
@@ -18,9 +24,7 @@ const BRANCHES = [
     name: "Jaipur — Sitapura",
     area: "Sitapura Industrial Area, Jaipur",
     phone: "+91 98290 00001",
-    // Replace with your own Google Maps embed link (see instructions below the component)
     mapLink: "https://www.google.com/maps?q=Sitapura+Industrial+Area+Jaipur&output=embed",
-    // "Get Directions" always works even if the embed above fails to load
     directionsLink: "https://www.google.com/maps/dir/?api=1&destination=Sitapura+Industrial+Area+Jaipur",
   },
   {
@@ -43,12 +47,13 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", branch: "", message: "" });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [activeMap, setActiveMap] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    // clear that field's error as the person starts fixing it
     if (errors[name]) setErrors({ ...errors, [name]: null });
   };
 
@@ -76,11 +81,33 @@ export default function Contact() {
       setErrors(newErrors);
       return;
     }
-    // Hook this up to your backend/email service later
-    console.log("Form submitted:", form);
-    setSubmitted(true);
-    setForm({ name: "", phone: "", branch: "", message: "" });
-    setErrors({});
+
+    setSending(true);
+    setSendError(false);
+
+    emailjs
+      .send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          phone: form.phone,
+          branch: form.branch,
+          message: form.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setSending(false);
+        setSubmitted(true);
+        setForm({ name: "", phone: "", branch: "", message: "" });
+        setErrors({});
+      })
+      .catch((error) => {
+        console.error("Email send failed:", error);
+        setSending(false);
+        setSendError(true);
+      });
   };
 
   return (
@@ -91,8 +118,9 @@ export default function Contact() {
         .body-font { font-family: 'Inter', sans-serif; }
         .form-input { transition: border-color 0.15s ease; font-family: 'Inter', sans-serif; }
         .form-input:focus { outline: none; border-color: ${colors.orange}; }
-        .submit-btn { transition: background 0.2s ease; }
+        .submit-btn { transition: background 0.2s ease, opacity 0.2s ease; }
         .submit-btn:hover { background: ${colors.orangeDark}; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .branch-row { transition: background 0.15s ease; }
         .branch-row:hover { background: rgba(217,83,30,0.06); }
         .map-tab { transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease; }
@@ -152,6 +180,16 @@ export default function Contact() {
             </div>
           ) : (
           <form onSubmit={handleSubmit} noValidate className="p-7 md:p-9" style={{ background: "#FFFFFF", border: `1px solid ${colors.concreteMid}` }}>
+            {sendError && (
+              <div
+                className="body-font text-sm px-4 py-3 mb-5"
+                style={{ background: "rgba(217,83,30,0.08)", color: colors.orangeDark, border: `1px solid ${colors.orange}` }}
+              >
+                Something went wrong sending your request. Please try again, or call us directly at{" "}
+                <a href="tel:+919829000000" className="font-semibold">+91 98290 00000</a>.
+              </div>
+            )}
+
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="body-font text-xs font-medium block mb-2" style={{ color: colors.steel }}>
@@ -235,10 +273,11 @@ export default function Contact() {
 
             <button
               type="submit"
+              disabled={sending}
               className="submit-btn flex items-center justify-center gap-2 brand-font text-sm font-medium tracking-wide text-white px-6 py-3.5 mt-6 w-full sm:w-auto"
               style={{ background: colors.orange }}
             >
-              Send Request
+              {sending ? "Sending..." : "Send Request"}
               <Send size={15} strokeWidth={2.5} />
             </button>
           </form>
