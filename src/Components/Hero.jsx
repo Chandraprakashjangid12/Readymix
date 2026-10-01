@@ -8,8 +8,9 @@ import { ArrowRight, Phone, ChevronLeft, ChevronRight, ShieldCheck } from "lucid
 // import heroImage from "../assets/plant-photo.jpg";
 import heroImage2 from "../assets/c3.jpg";
 import heroImage3 from "../assets/c1.jpg";
-import heroImage4 from "../assets/gd.jpg";
-
+// import heroImage4 from "../assets/gd.jpg";  
+// import heroImage4 from "../assets/gd1.jpg";  // placeholder for now, swap with real photo
+import heroImage4 from "../assets/plant-photo.jpg";  // placeholder for now, swap with real photo
 const colors = {
   charcoal: "#221F1C",
   charcoalSoft: "#33302B",
@@ -111,8 +112,7 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* Full-bleed background image slides — using <img> + object-fit so the
-          WHOLE photo always shows correctly, never half-cut or broken */}
+      {/* Full-bleed background image slides */}
       {SLIDES.map((s, i) => (
         <div
           key={i}
@@ -120,24 +120,15 @@ export default function Hero() {
           style={{
             position: "absolute",
             inset: 0,
+            backgroundImage: `url(${s.image})`,
+            backgroundSize:  "center top",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            
             opacity: i === active ? 1 : 0,
             zIndex: 1,
-            overflow: "hidden",
-            background: colors.charcoal,
           }}
-        >
-          <img
-            src={s.image}
-            alt=""
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              display: "block",
-            }}
-          />
-        </div>
+        />
       ))}
 
       {/* Cinematic gradient overlays for text legibility + brand mood */}
@@ -171,7 +162,7 @@ export default function Hero() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full flex-1 flex items-center" style={{ zIndex: 3 }}>
-        <div key={active} className="slide-text max-w-2xl py-16 md:py-14">
+        <div key={active} className="slide-text max-w-2xl pt-36 pb-16 md:pt-28 md:pb-14">
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 mb-8"
             style={{ background: "rgba(217,83,30,0.16)", border: `1px solid ${colors.orange}`, backdropFilter: "blur(4px)" }}
