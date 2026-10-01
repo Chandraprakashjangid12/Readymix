@@ -35,6 +35,13 @@ const BRANCHES = [
     directionsLink: "https://www.google.com/maps/dir/?api=1&destination=Ajmer+Road+Jaipur",
   },
   {
+    name: "Dausa Plant",
+    area: "NH-48, Dausa, Rajasthan",
+    phone: "+91 98290 00003", 
+    mapLink: "https://www.google.com/maps?q=Dausa+Rajasthan&output=embed",
+    directionsLink: "https://www.google.com/maps/dir/?api=1&destination=Dausa+Rajasthan",
+  },
+  {
     name: "Kotputli Plant",
     area: "NH-48, Kotputli, Rajasthan",
     phone: "+91 98290 00003",

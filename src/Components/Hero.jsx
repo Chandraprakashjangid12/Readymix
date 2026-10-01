@@ -5,7 +5,10 @@ import { ArrowRight, Phone, ChevronLeft, ChevronRight, ShieldCheck } from "lucid
 // Swap each of these with your own real photos — plant shots, trucks
 // pouring, finished projects. Reusing one as a placeholder for all slots
 // for now so the slider looks complete; replace filenames as you get them.
-import heroImage from "../assets/plant-photo.jpg";
+// import heroImage from "../assets/plant-photo.jpg";
+import heroImage2 from "../assets/c3.jpg";
+import heroImage3 from "../assets/c1.jpg";
+import heroImage4 from "../assets/gd.jpg";
 
 const colors = {
   charcoal: "#221F1C",
@@ -22,7 +25,7 @@ const colors = {
 const STATS = [
   { label: "Years in Business", value: "15+" },
   { label: "Cubic Meters Delivered", value: "2M+" },
-  { label: "Active Plants", value: "3" },
+  { label: "Active Plants", value: "4" },
   { label: "Projects Completed", value: "800+" },
 ];
 
@@ -30,19 +33,19 @@ const STATS = [
 // a premium construction-industry slider (JaipurReadyMix / RMC style).
 const SLIDES = [
   {
-    image: heroImage,
+    image: heroImage2,
     eyebrow: "Trusted Ready Mix Supplier Since 2009",
     headline: ["Concrete strength,", "poured on time."],
     sub: "High-grade M-sand and RMC concrete from three plants across Jaipur, delivered by our own fleet.",
   },
   {
-    image: heroImage,
+    image: heroImage3,
     eyebrow: "Our Own Transit Mixer Fleet",
     headline: ["On the road,", "on your site."],
     sub: "No third-party delays — our trucks are dispatched directly from our plants to yours.",
   },
   {
-    image: heroImage,
+    image: heroImage4,
     eyebrow: "Lab-Tested, Every Single Batch",
     headline: ["Quality built to", "last a lifetime."],
     sub: "M15 to M40 grades, tested for slump and strength before a single truck leaves the plant.",
@@ -89,10 +92,10 @@ export default function Hero() {
           from { transform: scale(1.12); }
           to   { transform: scale(1); }
         }
-        .slide-text > * { animation: heroFadeUp 0.7s ease both; }
-        .slide-text > *:nth-child(2) { animation-delay: 0.08s; }
-        .slide-text > *:nth-child(3) { animation-delay: 0.16s; }
-        .slide-text > *:nth-child(4) { animation-delay: 0.24s; }
+        .slide-text > * { animation: heroFadeUp 1.4s ease both; }
+        .slide-text > *:nth-child(2) { animation-delay: 0.12s; }
+        .slide-text > *:nth-child(3) { animation-delay: 0.24s; }
+        .slide-text > *:nth-child(4) { animation-delay: 0.36s; }
         @keyframes heroFadeUp {
           from { opacity: 0; transform: translateY(18px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -108,7 +111,8 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* Full-bleed background image slides */}
+      {/* Full-bleed background image slides — using <img> + object-fit so the
+          WHOLE photo always shows correctly, never half-cut or broken */}
       {SLIDES.map((s, i) => (
         <div
           key={i}
@@ -116,13 +120,24 @@ export default function Hero() {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${s.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
             opacity: i === active ? 1 : 0,
             zIndex: 1,
+            overflow: "hidden",
+            background: colors.charcoal,
           }}
-        />
+        >
+          <img
+            src={s.image}
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
+            }}
+          />
+        </div>
       ))}
 
       {/* Cinematic gradient overlays for text legibility + brand mood */}

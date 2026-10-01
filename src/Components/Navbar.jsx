@@ -13,6 +13,11 @@ const BRANCHES = [
     area: "Ajmer Road, Jaipur",
     phone: "+91 98290 00002",
   },
+   {
+    name: "Dausa Plant",
+    area: "NH-48, Dausa, Rajasthan",
+    phone: "+91 98290 00003",
+  },
   {
     name: "Kotputli Plant",
     area: "NH-48, Kotputli, Rajasthan",
@@ -97,7 +102,7 @@ export default function Navbar() {
           borderBottom: `1px solid ${colors.concreteMid}`,
           boxShadow: scrolled ? "0 4px 16px rgba(0,0,0,0.08)" : "none",
         }}
-        className="sticky top-0 z-50 transition-shadow duration-200"
+        className="fixed top-0 left-0 w-full z-50 transition-shadow duration-200"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="flex items-center justify-between h-20">
